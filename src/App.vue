@@ -1,5 +1,5 @@
 <script setup>
-import { RouterView } from 'vue-router'
+import { RouterView, RouterLink } from 'vue-router'
 import { ref } from 'vue';
 
 const showMenu = ref(false)
@@ -30,10 +30,19 @@ const showMenu = ref(false)
       </nav>
       <div v-if="showMenu">
         <ul class="divide-[#1E2D3D] text-white divide-y-[2px] flex-grow">
-          <li class="h-14 flex items-center pl-4"><span>_olá</span></li>
-          <li class="h-14 flex items-center pl-4"><span>_sobre-mim</span></li>
-          <li class="h-14 flex items-center pl-4"><span>_projetos</span></li>
-          <li class="h-14 flex items-center pl-4"><span>_contato</span></li>
+          <li class="h-14 flex items-center pl-4">
+            <RouterLink to="/" class="w-full h-full flex items-center" @click="showMenu = false">_olá</RouterLink>
+          </li>
+          <li class="h-14 flex items-center pl-4">
+            <RouterLink to="/about" class="w-full h-full flex items-center" @click="showMenu = false">_sobre-mim
+            </RouterLink>
+          </li>
+          <li class="h-14 flex items-center pl-4">
+            <RouterLink>_projetos</RouterLink>
+          </li>
+          <li class="h-14 flex items-center pl-4">
+            <RouterLink>_contato</RouterLink>
+          </li>
           <li class="h-14"></li>
         </ul>
       </div>
