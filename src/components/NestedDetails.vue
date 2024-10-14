@@ -1,0 +1,46 @@
+<script setup>
+import { onMounted, ref } from 'vue';
+
+const emit = defineEmits(['render-content', 'clear-content'])
+const props = defineProps({
+    details: {
+        type: Array,
+        default: () => []
+    }
+})
+onMounted(() => {
+    const detailsTag = document.querySelectorAll('.parent-details')
+    detailsTag.forEach((element) => {
+        element.addEventListener('toggle', () => {
+            isOpen.value = Array(props.details.value).fill(false)
+            emit('clear-content')
+        })
+    })
+})
+const isOpen = ref(Array(props.details.value).fill(false))
+function toggle(index, detail) {
+    isOpen.value = Array(props.details.value).fill(false)
+    isOpen.value[index] = !isOpen.value[index]
+    emit('render-content', detail)
+}
+</script>
+<template>
+    <details class="bg-[#1E2D3D] parent-details">
+        <summary class="text-white pl-5 py-2">
+            <span class="ml-2">
+                <slot name="title"></slot>
+            </span>
+        </summary>
+        <details class="bg-[#011627] pl-5 text-[#607B96]" v-for="(detail, index) in details" :key="index"
+            @click.prevent="toggle(index, detail)" :class="{ 'text-white': isOpen[index] }" :open="isOpen[index]">
+            <summary class="py-2 accordeon flex gap-2">
+                <svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M15.0802 3.61111V12.2778C15.0802 12.4693 15.0041 12.653 14.8687 12.7885C14.7332 12.9239 14.5495 13 14.358 13H1.35796C1.16642 13 0.982719 12.9239 0.847276 12.7885C0.711833 12.653 0.635742 12.4693 0.635742 12.2778V2.88889H14.358C14.5495 2.88889 14.7332 2.96498 14.8687 3.10042C15.0041 3.23587 15.0802 3.41957 15.0802 3.61111ZM8.15696 1.44444H0.635742V0.722222C0.635742 0.530677 0.711833 0.346977 0.847276 0.211534C0.982719 0.076091 1.16642 0 1.35796 0H6.71252L8.15696 1.44444Z"
+                        :fill="detail.color" />
+                </svg>
+                {{ Object.keys(detail)[0] }}
+            </summary>
+        </details>
+    </details>
+</template>
