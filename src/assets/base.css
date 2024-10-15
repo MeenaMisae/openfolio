@@ -11,7 +11,7 @@ summary.accordeon::before {
     width: 9px;
     height: 13px;
     content: '';
-    background: url('../../public/images/arrow.svg') no-repeat;
+    background: url('images/arrow.svg') no-repeat;
     /* margin-right: 13px; */
 }
 
