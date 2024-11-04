@@ -6,8 +6,8 @@ const showMenu = ref(false)
 </script>
 
 <template>
-  <main class="bg-[#010C15] h-screen w-screen p-4">
-    <div class="bg-[#011627] border-[#1E2D3D] border-2 h-full w-full rounded-xl">
+  <main class="bg-[#010C15] p-4 min-h-screen">
+    <div class="bg-[#011627] border-[#1E2D3D] border-2 w-full rounded-xl min-h-screen">
       <nav>
         <ul class="text-[#607B96] h-14 border-[#1E2D3D] border-b-2 p-5 flex items-center justify-between">
           <li>
@@ -38,10 +38,12 @@ const showMenu = ref(false)
             </RouterLink>
           </li>
           <li class="h-14 flex items-center pl-4">
-            <RouterLink>_projetos</RouterLink>
+            <RouterLink to="/projects" class="w-full h-full flex items-center" @click="showMenu = false">_projetos
+            </RouterLink>
           </li>
           <li class="h-14 flex items-center pl-4">
-            <RouterLink>_contato</RouterLink>
+            <RouterLink to="/contact" class="w-full h-full flex items-center" @click="showMenu = false">_contato
+            </RouterLink>
           </li>
           <li class="h-14"></li>
         </ul>
