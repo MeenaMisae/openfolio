@@ -1,71 +1,125 @@
 <script setup>
 import { ref } from 'vue';
-import NestedDetails from '@/components/NestedDetails.vue'
-const topics = ref([
-  {
-    'name': 'pessoal',
-    'details': [{
-      'bio': {
-        'presentation': 'Olá, meu nome é Meena, tenho 23 anos e sou uma desenvolvedora júnior apaixonada por tecnologia e inovação. 🧑‍💻 <br><br> Estou sempre em busca de novos desafios e oportunidades para crescer, tanto na minha carreira quanto nas minhas paixões pessoais :)'
-      },
-      'color': '#E99287',
-    },
-    {
-      'interesses': {
-        'lista': 'Tenho um grande interesse por animes, mangás, e livros de ficção científica. 👽️ <br><br> Também gosto muito de praticar esportes, principalmente natação e ciclismo. 🚴'
-      },
-      'color': '#43D9AD'
-    },
-    {
-      'educacao': {
-        'lista': 'Atualmente, curso o 4º período de Análise e Desenvolvimento de Sistemas, e o 1º período de Engenharia da Computação. 👩‍🎓'
-      },
-      'color': '#3A49A4'
-    }]
-  },
-  {
-    'name': 'profissional',
-    'details': [{
-      '07/2024': {
-        'descricao': '<b>Em julho de 2024, fui promovida a Desenvolvedora Júnior na G3 Telecom</b>.<br><br> Passei a desenvolver funcionalidades com Laravel, Livewire, Tailwind, e gerenciar ambientes com Docker. <br><br>Utilizei o Redis para cache e filas assíncronas, além de trabalhar com S3 para armazenamento e MySQL em bancos de dados. <br><br>Colaborei em times ágeis, seguindo Scrum e utilizando GitFlow para controle de versão, otimizando processos e entregas.'
-      },
-      'color': '#E99287'
-    },
-    {
-      '07/2023': {
-        'descricao': '<b>Em julho de 2023, comecei como Estagiária de Desenvolvimento na G3 Telecom</b>.<br><br> Atuei no desenvolvimento e manutenção de sistemas, utilizando PHP e jQuery para corrigir bugs e implementar funcionalidades. <br><br>Também contribuí com a documentação técnica, detalhando fluxos e integrações, e trabalhei em equipe, adquirindo uma base sólida em desenvolvimento web.',
-      },
-      'color': '#43D9AD'
-    }]
-  },
-])
-
+const topic = ref()
 const showContent = ref(false)
-const isOpen = ref(Array(topics.value.length).fill(false))
-const formattedData = ref({})
+const content = ref()
+function loadTopic(title, isOpen) {
+  if (isOpen) {
+    showContent.value = isOpen
+    topic.value = title
+    loadContent(title)
+    document.querySelectorAll('details[data-topic]').forEach((el) => {
+      if (el.getAttribute('data-topic') !== title) {
+        el.open = false
+      }
+    })
+  } else {
+    if (topic.value === title) {
+      showContent.value = false;
+      topic.value = null;
+    }
+  }
+}
+function loadContent(title) {
+  if (title === 'bio') {
+    return content.value = 'Olá, meu nome é Meena, tenho 23 anos e sou uma desenvolvedora júnior apaixonada por tecnologia e inovação. 🧑‍💻 <br><br> Estou sempre em busca de novos desafios e oportunidades para crescer, tanto na minha carreira quanto nas minhas paixões pessoais :)'
+  }
+  if (title === 'interesses') {
+    return content.value = 'Tenho um grande interesse por animes, mangás, e livros de ficção científica. 👽️ <br><br> Também gosto muito de praticar esportes, principalmente natação e ciclismo. 🚴'
+  }
+  if (title === 'educacao') {
+    return content.value = 'Atualmente, curso o 4º período de Análise e Desenvolvimento de Sistemas, e o 1º período de Engenharia da Computação. 👩‍🎓'
+  }
+  if (title === '07/2024') {
+    return content.value = '<b>Em julho de 2024, fui promovida a Desenvolvedora Júnior na G3 Telecom</b>.<br><br> Passei a desenvolver funcionalidades com Laravel, Livewire, Tailwind, e gerenciar ambientes com Docker. <br><br>Utilizei o Redis para cache e filas assíncronas, além de trabalhar com S3 para armazenamento e MySQL em bancos de dados. <br><br>Colaborei em times ágeis, seguindo Scrum e utilizando GitFlow para controle de versão, otimizando processos e entregas.'
+  }
+  if (title === '07/2023') {
+    return content.value = '<b>Em julho de 2023, comecei como Estagiária de Desenvolvimento na G3 Telecom</b>.<br><br> Atuei no desenvolvimento e manutenção de sistemas, utilizando PHP e jQuery para corrigir bugs e implementar funcionalidades. <br><br>Também contribuí com a documentação técnica, detalhando fluxos e integrações, e trabalhei em equipe, adquirindo uma base sólida em desenvolvimento web.'
+  }
+}
+function closeChildren(title, isOpen) {
+  if (!isOpen) {
+    const parent = document.querySelector(`details[data-parent="${title}"]`);
+    const children = parent.querySelectorAll('details[data-topic]')
+    children.forEach((child) => {
+      child.open = false
+    })
+  }
+}
 
-function handleContent(detail) {
-  formattedData.value = detail
-  showContent.value = true
-}
-function hideContent() {
-  showContent.value = false
-}
-function toggleDetails(index) {
-  isOpen.value = Array(topics.value.length).fill(false);
-  isOpen.value[index] = true;
-}
 </script>
 <template>
-  <div>
+  <div class="pb-3">
     <div class="h-16 flex items-center pl-5">
       <h1 class="text-white">_sobre-mim</h1>
     </div>
     <div class="space-y-1">
-      <NestedDetails v-for="(topic, index) in topics" :key="index" :details="topic.details" :open="isOpen[index]"
-        @click.prevent="toggleDetails(index)" @render-content="handleContent" @clear-content="hideContent">
-        <template #title>{{ topic.name }}</template>
-      </NestedDetails>
+      <details class="bg-[#1E2D3D]" @toggle="closeChildren('pessoal', $event.target.open)" data-parent="pessoal">
+        <summary class="text-white pl-5 py-2">
+          <span class="ml-2">pessoal</span>
+        </summary>
+        <details class="bg-[#011627] pl-5 text-[#607B96]" @toggle="loadTopic('bio', $event.target.open)"
+          data-topic="bio" :class="{ 'text-white': topic === 'bio' }">
+          <summary class="py-2 accordeon flex gap-2">
+            <svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M15.0802 3.61111V12.2778C15.0802 12.4693 15.0041 12.653 14.8687 12.7885C14.7332 12.9239 14.5495 13 14.358 13H1.35796C1.16642 13 0.982719 12.9239 0.847276 12.7885C0.711833 12.653 0.635742 12.4693 0.635742 12.2778V2.88889H14.358C14.5495 2.88889 14.7332 2.96498 14.8687 3.10042C15.0041 3.23587 15.0802 3.41957 15.0802 3.61111ZM8.15696 1.44444H0.635742V0.722222C0.635742 0.530677 0.711833 0.346977 0.847276 0.211534C0.982719 0.076091 1.16642 0 1.35796 0H6.71252L8.15696 1.44444Z"
+                fill="#E99287" />
+            </svg>
+            bio
+          </summary>
+        </details>
+        <details class="bg-[#011627] pl-5 text-[#607B96]" @toggle="loadTopic('interesses', $event.target.open)"
+          data-topic="interesses" :class="{ 'text-white': topic === 'interesses' }">
+          <summary class=" py-2 accordeon flex gap-2">
+            <svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M15.0802 3.61111V12.2778C15.0802 12.4693 15.0041 12.653 14.8687 12.7885C14.7332 12.9239 14.5495 13 14.358 13H1.35796C1.16642 13 0.982719 12.9239 0.847276 12.7885C0.711833 12.653 0.635742 12.4693 0.635742 12.2778V2.88889H14.358C14.5495 2.88889 14.7332 2.96498 14.8687 3.10042C15.0041 3.23587 15.0802 3.41957 15.0802 3.61111ZM8.15696 1.44444H0.635742V0.722222C0.635742 0.530677 0.711833 0.346977 0.847276 0.211534C0.982719 0.076091 1.16642 0 1.35796 0H6.71252L8.15696 1.44444Z"
+                fill="#43D9AD" />
+            </svg>
+            interesses
+          </summary>
+        </details>
+        <details class="bg-[#011627] pl-5 text-[#607B96]" @toggle="loadTopic('educacao', $event.target.open)"
+          data-topic="educacao" :class="{ 'text-white': topic === 'educacao' }">
+          <summary class=" py-2 accordeon flex gap-2">
+            <svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M15.0802 3.61111V12.2778C15.0802 12.4693 15.0041 12.653 14.8687 12.7885C14.7332 12.9239 14.5495 13 14.358 13H1.35796C1.16642 13 0.982719 12.9239 0.847276 12.7885C0.711833 12.653 0.635742 12.4693 0.635742 12.2778V2.88889H14.358C14.5495 2.88889 14.7332 2.96498 14.8687 3.10042C15.0041 3.23587 15.0802 3.41957 15.0802 3.61111ZM8.15696 1.44444H0.635742V0.722222C0.635742 0.530677 0.711833 0.346977 0.847276 0.211534C0.982719 0.076091 1.16642 0 1.35796 0H6.71252L8.15696 1.44444Z"
+                fill="#3A49A4" />
+            </svg>
+            educacao
+          </summary>
+        </details>
+      </details>
+      <details class="bg-[#1E2D3D]" @toggle="closeChildren('profissional', $event.target.open)"
+        data-parent="profissional">
+        <summary class="text-white pl-5 py-2">
+          <span class="ml-2">profissional</span>
+        </summary>
+        <details class="bg-[#011627] pl-5 text-[#607B96]" @toggle="loadTopic('07/2024', $event.target.open)"
+          data-topic="07/2024" :class="{ 'text-white': topic === '07/2024' }">
+          <summary class="py-2 accordeon flex gap-2">
+            <svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M15.0802 3.61111V12.2778C15.0802 12.4693 15.0041 12.653 14.8687 12.7885C14.7332 12.9239 14.5495 13 14.358 13H1.35796C1.16642 13 0.982719 12.9239 0.847276 12.7885C0.711833 12.653 0.635742 12.4693 0.635742 12.2778V2.88889H14.358C14.5495 2.88889 14.7332 2.96498 14.8687 3.10042C15.0041 3.23587 15.0802 3.41957 15.0802 3.61111ZM8.15696 1.44444H0.635742V0.722222C0.635742 0.530677 0.711833 0.346977 0.847276 0.211534C0.982719 0.076091 1.16642 0 1.35796 0H6.71252L8.15696 1.44444Z"
+                fill="#43D9AD" />
+            </svg>
+            07/2024
+          </summary>
+        </details>
+        <details class="bg-[#011627] pl-5 text-[#607B96]" @toggle="loadTopic('07/2023', $event.target.open)"
+          data-topic="07/2023" :class="{ 'text-white': topic === '07/2023' }">
+          <summary class="py-2 accordeon flex gap-2">
+            <svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M15.0802 3.61111V12.2778C15.0802 12.4693 15.0041 12.653 14.8687 12.7885C14.7332 12.9239 14.5495 13 14.358 13H1.35796C1.16642 13 0.982719 12.9239 0.847276 12.7885C0.711833 12.653 0.635742 12.4693 0.635742 12.2778V2.88889H14.358C14.5495 2.88889 14.7332 2.96498 14.8687 3.10042C15.0041 3.23587 15.0802 3.41957 15.0802 3.61111ZM8.15696 1.44444H0.635742V0.722222C0.635742 0.530677 0.711833 0.346977 0.847276 0.211534C0.982719 0.076091 1.16642 0 1.35796 0H6.71252L8.15696 1.44444Z"
+                fill="#E99287" />
+            </svg>
+            07/2023
+          </summary>
+        </details>
+      </details>
     </div>
     <div class="px-2 mt-6">
       <div class="flex gap-x-3 items-center mb-3" v-show="showContent">
@@ -75,15 +129,10 @@ function toggleDetails(index) {
           <span class="text-[#607B96] text-sm">5 meses atrás</span>
         </div>
       </div>
-      <div class="flex items-center">
+      <div class="flex items-center" v-show="showContent">
         <div
-          class="bg-[#011221] p-4 rounded-lg border-[1px] w-full max-h-64 overflow-y-auto border-[#1E2D3D] text-[#D8DEE9] font-mono"
-          v-show="showContent">
-          <div v-for="(data, key) in formattedData" :key="key" class="w-full h-full">
-            <div v-if="typeof data === 'object'">
-              <p v-html="Object.values(data)[0]"></p>
-            </div>
-          </div>
+          class="bg-[#011221] p-4 rounded-lg border-[1px] w-full max-h-96 overflow-y-auto border-[#1E2D3D] text-[#D8DEE9] font-mono"
+          v-html="content">
         </div>
       </div>
     </div>
