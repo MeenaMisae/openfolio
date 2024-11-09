@@ -1,38 +1,27 @@
 <script setup>
-import { onMounted, ref } from 'vue';
-
-const emit = defineEmits(['render-content', 'clear-content'])
-const props = defineProps({
+import { ref, defineEmits } from 'vue';
+const emit = defineEmits(['renderContent'])
+defineProps({
     details: {
         type: Array,
         default: () => []
-    }
+    },
 })
-onMounted(() => {
-    const detailsTag = document.querySelectorAll('.parent-details')
-    detailsTag.forEach((element) => {
-        element.addEventListener('toggle', () => {
-            isOpen.value = Array(props.details.value).fill(false)
-            emit('clear-content')
-        })
-    })
-})
-const isOpen = ref(Array(props.details.value).fill(false))
-function toggle(index, detail) {
-    isOpen.value = Array(props.details.value).fill(false)
-    isOpen.value[index] = !isOpen.value[index]
-    emit('render-content', detail)
+const openedDetail = ref(null);
+function toggleDetail(detail) {
+    openedDetail.value = Object.keys(detail)[0]
+    emit('renderContent', detail)
 }
 </script>
 <template>
-    <details class="bg-[#1E2D3D] parent-details">
+    <details class="bg-[#1E2D3D]">
         <summary class="text-white pl-5 py-2">
             <span class="ml-2">
                 <slot name="title"></slot>
             </span>
         </summary>
-        <details class="bg-[#011627] pl-5 text-[#607B96]" v-for="(detail, index) in details" :key="index"
-            @click.prevent="toggle(index, detail)" :class="{ 'text-white': isOpen[index] }" :open="isOpen[index]">
+        <details class="bg-[#011627] pl-5 text-[#607B96]" v-for="(detail) in details" :key="detail"
+            :open="openedDetail === Object.keys(detail)[0]" @click.prevent="toggleDetail(detail)">
             <summary class="py-2 accordeon flex gap-2">
                 <svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
