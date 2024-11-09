@@ -1,6 +1,10 @@
 <script setup>
 const technologies = ['HTML', 'CSS', 'Vue'];
-const projects = { '1': { 'title': '_wire-cotton', 'description': 'iodsjisdjisj' } } 
+const projects = {
+    '1': { 'title': '_wire-cotton', 'description': 'Front-end desenvolvido em Vue.js para um painel de administração de produtos em um e-commerce. Permite o gerenciamento eficiente de itens, facilitando a experiência do usuário na gestão de um catálogo online.', 'src': '/images/projects/wire-cotton.avif' },
+    '2': { 'title': '_wire-cotton-api', 'description': 'Back-end em Laravel com MySQL, atuando como API para o projeto Wire-Cotton, fornecendo funcionalidades e dados para o painel de administração e garantindo a integridade e eficiência das operações de e-commerce.', 'src': '/images/projects/wire-cotton.avif' },
+    '3': { 'title': '_meenu', 'description': 'Em construção, esse projeto é voltado para o setor alimentício e permite o gerenciamento de produtos, incluindo funcionalidades como precificação, receitas, controle de estoque e outras ferramentas importantes para a área de alimentos.', 'src': '/images/projects/wire-cotton.avif' }
+} 
 </script>
 <template>
     <div class="pb-3 w-full">
@@ -23,12 +27,22 @@ const projects = { '1': { 'title': '_wire-cotton', 'description': 'iodsjisdjisj'
                 </ul>
             </div>
         </details>
-        <div class="w-full px-7 mt-6">
-            <div v-for="(project, index) in projects" :key="index">
+        <div class="w-full px-7 mt-6 flex flex-col space-y-4">
+            <div v-for="(project, index) in projects" :key="index" class="space-y-3">
                 <span class="text-[#5565E8] font-bold">Projeto {{ index }}
                     <span class="text-[#607B96] ml-2 font-normal">/{{ project.title }}</span>
                 </span>
-                <div class="border-[#1E2D3D] w-full"></div>
+                <div class="border-[#1E2D3D] border rounded-2xl">
+                    <div class="w-full h-48 overflow-hidden">
+                        <img :src="project.src" alt="" class="rounded-t-2xl">
+                    </div>
+                    <div class="bg-[#011221] rounded-b-2xl p-8 space-y-6 border-t border-[#1E2D3D]">
+                        <p class="text-[#607B96]">
+                            {{ project.description }}
+                        </p>
+                        <button class="bg-[#1C2B3A] rounded-lg text-white w-full h-10">ver-projeto</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
