@@ -6,8 +6,8 @@ const showMenu = ref(false)
 </script>
 
 <template>
-  <main class="bg-[#010C15] p-4 min-h-screen">
-    <div class="bg-[#011627] border-[#1E2D3D] border-2 w-full rounded-xl min-h-screen">
+  <main class="bg-[#010C15] p-4 h-screen overflow-auto">
+    <div class="bg-[#011627] border-[#1E2D3D] border-2 w-full rounded-xl overflow-auto h-full">
       <nav>
         <ul class="text-[#607B96] h-14 border-[#1E2D3D] border-b-2 p-5 flex items-center justify-between">
           <li>
