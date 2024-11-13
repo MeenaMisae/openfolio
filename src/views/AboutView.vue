@@ -31,10 +31,10 @@ function loadContent(title) {
     return content.value = 'Atualmente, curso o 4º período de Análise e Desenvolvimento de Sistemas, e o 1º período de Engenharia da Computação. 👩‍🎓'
   }
   if (title === '07/2024') {
-    return content.value = '<b>Em julho de 2024, fui promovida a Desenvolvedora Júnior na G3 Telecom</b>.<br><br> Passei a desenvolver funcionalidades com Laravel, Livewire, Tailwind, e gerenciar ambientes com Docker. <br><br>Utilizei o Redis para cache e filas assíncronas, além de trabalhar com S3 para armazenamento e MySQL em bancos de dados. <br><br>Colaborei em times ágeis, seguindo Scrum e utilizando GitFlow para controle de versão, otimizando processos e entregas.'
+    return content.value = '<b>Em julho de 2024, fui promovida a Desenvolvedora Júnior na G3 Telecom</b>.<br><br> 📌 Passei a desenvolver funcionalidades com Laravel, Livewire, Tailwind, e gerenciar ambientes com Docker. <br><br> 📌 Utilizei o Redis para cache e filas assíncronas, além de trabalhar com S3 para armazenamento e MySQL em bancos de dados. <br><br> 📌 Colaborei em times ágeis, seguindo Scrum e utilizando GitFlow para controle de versão, otimizando processos e entregas.'
   }
   if (title === '07/2023') {
-    return content.value = '<b>Em julho de 2023, comecei como Estagiária de Desenvolvimento na G3 Telecom</b>.<br><br> Atuei no desenvolvimento e manutenção de sistemas, utilizando PHP e jQuery para corrigir bugs e implementar funcionalidades. <br><br>Também contribuí com a documentação técnica, detalhando fluxos e integrações, e trabalhei em equipe, adquirindo uma base sólida em desenvolvimento web.'
+    return content.value = '<b>Em julho de 2023, comecei como Estagiária de Desenvolvimento na G3 Telecom</b>.<br><br> 📌 Atuei no desenvolvimento e manutenção de sistemas, utilizando PHP e jQuery para corrigir bugs e implementar funcionalidades. <br><br> 📌 Também contribuí com a documentação técnica, detalhando fluxos e integrações, e trabalhei em equipe, adquirindo uma base sólida em desenvolvimento web.'
   }
 }
 function closeChildren(title, isOpen) {
@@ -131,7 +131,7 @@ function closeChildren(title, isOpen) {
       </div>
       <div class="flex items-center" v-show="showContent">
         <div
-          class="bg-[#011221] p-4 rounded-lg border-[1px] w-full max-h-96 overflow-y-auto border-[#1E2D3D] text-[#D8DEE9] font-mono"
+          class="bg-[#011221] p-4 rounded-lg border-[1px] w-full max-h-dvh overflow-y-auto border-[#1E2D3D] text-[#D8DEE9] font-mono"
           v-html="content">
         </div>
       </div>
