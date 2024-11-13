@@ -7,8 +7,8 @@ const showMenu = ref(false)
 
 <template>
   <main class="bg-[#010C15] p-4 h-screen overflow-auto">
-    <div class="bg-[#011627] border-[#1E2D3D] border-2 w-full rounded-xl overflow-auto h-full">
-      <nav>
+    <div class="bg-[#011627] border-[#1E2D3D] border-2 rounded-xl overflow-auto h-full">
+      <nav class="sticky top-0 w-full rounded bg-[#011627] z-10 relative">
         <ul class="text-[#607B96] h-14 border-[#1E2D3D] border-b-2 p-5 flex items-center justify-between">
           <li>
             meena-hiwatashi
@@ -27,30 +27,28 @@ const showMenu = ref(false)
             </button>
           </li>
         </ul>
+        <div v-if="showMenu" class="absolute top-full left-0 w-full z-50 bg-[#011627]">
+          <ul class="divide-[#1E2D3D] text-white divide-y-[2px] flex-grow">
+            <li class="h-14 flex items-center pl-4">
+              <RouterLink to="/" class="w-full h-full flex items-center" @click="showMenu = false">_olá</RouterLink>
+            </li>
+            <li class="h-14 flex items-center pl-4">
+              <RouterLink to="/about" class="w-full h-full flex items-center" @click="showMenu = false">_sobre-mim
+              </RouterLink>
+            </li>
+            <li class="h-14 flex items-center pl-4">
+              <RouterLink to="/projects" class="w-full h-full flex items-center" @click="showMenu = false">_projetos
+              </RouterLink>
+            </li>
+            <li class="h-14 flex items-center pl-4">
+              <RouterLink to="/contact" class="w-full h-full flex items-center" @click="showMenu = false">_contato
+              </RouterLink>
+            </li>
+            <li class="h-1"></li>
+          </ul>
+        </div>
       </nav>
-      <div v-if="showMenu">
-        <ul class="divide-[#1E2D3D] text-white divide-y-[2px] flex-grow">
-          <li class="h-14 flex items-center pl-4">
-            <RouterLink to="/" class="w-full h-full flex items-center" @click="showMenu = false">_olá</RouterLink>
-          </li>
-          <li class="h-14 flex items-center pl-4">
-            <RouterLink to="/about" class="w-full h-full flex items-center" @click="showMenu = false">_sobre-mim
-            </RouterLink>
-          </li>
-          <li class="h-14 flex items-center pl-4">
-            <RouterLink to="/projects" class="w-full h-full flex items-center" @click="showMenu = false">_projetos
-            </RouterLink>
-          </li>
-          <li class="h-14 flex items-center pl-4">
-            <RouterLink to="/contact" class="w-full h-full flex items-center" @click="showMenu = false">_contato
-            </RouterLink>
-          </li>
-          <li class="h-14"></li>
-        </ul>
-      </div>
-      <div v-else>
-        <RouterView />
-      </div>
+      <RouterView />
     </div>
   </main>
 </template>
