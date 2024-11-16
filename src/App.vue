@@ -1,8 +1,23 @@
 <script setup>
 import { RouterView, RouterLink } from 'vue-router'
-import { ref } from 'vue';
-
+import { onBeforeUnmount, onMounted, ref } from 'vue';
+const menu = ref(null)
 const showMenu = ref(false)
+function closeMenu(e) {
+  if (menu.value && !menu.value.contains(e.target)) {
+    showMenu.value = false
+  }
+}
+onMounted(() => {
+  document.addEventListener('click', closeMenu)
+})
+onBeforeUnmount(() => {
+  document.removeEventListener('click', closeMenu)
+})
+function toggleMenu(event) {
+  event.stopPropagation()
+  showMenu.value = !showMenu.value
+}
 </script>
 
 <template>
@@ -14,8 +29,8 @@ const showMenu = ref(false)
             meena-hiwatashi
           </li>
           <li class="lg:hidden">
-            <button @click="showMenu = !showMenu">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" v-show="!showMenu">
+            <button @click="toggleMenu">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" v-show="!showMenu">
                 <path d="M3 4H21V6H3V4ZM3 11H21V13H3V11ZM3 18H21V20H3V18Z" fill="#607B96" stroke="#607B96"></path>
               </svg>
               <svg width="18" height="18" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"
@@ -27,10 +42,11 @@ const showMenu = ref(false)
             </button>
           </li>
         </ul>
-        <div v-if="showMenu" class="absolute top-full left-0 w-full z-50 bg-[#011627]">
+        <div v-if="showMenu" class="absolute top-full left-0 w-full z-50 bg-[#011627]" ref="menu">
           <ul class="divide-[#1E2D3D] text-white divide-y-[2px] flex-grow">
             <li class="h-14 flex items-center pl-4">
-              <RouterLink to="/" class="w-full h-full flex items-center" @click="showMenu = false">_olá</RouterLink>
+              <RouterLink to="/" class="w-full h-full flex items-center" @click="showMenu = false"
+                activeClass="font-semibold">_olá</RouterLink>
             </li>
             <li class="h-14 flex items-center pl-4">
               <RouterLink to="/about" class="w-full h-full flex items-center" @click="showMenu = false">_sobre-mim
