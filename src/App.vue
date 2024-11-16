@@ -42,25 +42,32 @@ function toggleMenu(event) {
             </button>
           </li>
         </ul>
-        <div v-if="showMenu" class="absolute top-full left-0 w-full z-50 bg-[#011627]" ref="menu">
-          <ul class="divide-[#1E2D3D] text-white divide-y-[2px] flex-grow">
-            <li class="h-14 flex items-center pl-4">
+        <div v-show="showMenu" class="absolute top-full left-0 w-full z-50 bg-[#011627]" ref="menu">
+          <ul class="text-white">
+            <li class="h-14 flex items-center border-b border-b-[#1E2D3D]">
               <RouterLink to="/" class="w-full h-full flex items-center" @click="showMenu = false"
-                activeClass="font-semibold">_olá</RouterLink>
-            </li>
-            <li class="h-14 flex items-center pl-4">
-              <RouterLink to="/about" class="w-full h-full flex items-center" @click="showMenu = false">_sobre-mim
+                activeClass="font-semibold border-l-[#FEA55F] border-l-2">
+                <span class="ml-4">_olá</span>
               </RouterLink>
             </li>
-            <li class="h-14 flex items-center pl-4">
-              <RouterLink to="/projects" class="w-full h-full flex items-center" @click="showMenu = false">_projetos
+            <li class="h-14 flex items-center border-b border-b-[#1E2D3D]">
+              <RouterLink to="/about" class="w-full h-full flex items-center" @click="showMenu = false"
+                activeClass="font-semibold border-l-[#FEA55F] border-l-2">
+                <span class=" ml-4">_sobre-mim</span>
               </RouterLink>
             </li>
-            <li class="h-14 flex items-center pl-4">
-              <RouterLink to="/contact" class="w-full h-full flex items-center" @click="showMenu = false">_contato
+            <li class="h-14 flex items-center border-b border-b-[#1E2D3D]">
+              <RouterLink to="/projects" class="w-full h-full flex items-center" @click="showMenu = false"
+                activeClass="font-semibold border-l-[#FEA55F] border-l-2">
+                <span class="ml-4">_projetos</span>
               </RouterLink>
             </li>
-            <li class="h-1"></li>
+            <li class="h-14 flex items-center border-b border-b-[#1E2D3D]">
+              <RouterLink to="/contact" class="w-full h-full flex items-center" @click="showMenu = false"
+                activeClass="font-semibold border-l-[#FEA55F] border-l-2">
+                <span class="ml-4">_contato</span>
+              </RouterLink>
+            </li>
           </ul>
         </div>
       </nav>
