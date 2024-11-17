@@ -2,14 +2,15 @@
 </script>
 
 <template>
-  <div class="flex justify-between flex-col h-[70vh] overflow-hidden pl-3">
+  <div class="flex justify-between flex-col h-[70vh] overflow-hidden pl-3 lg:px-48">
     <div class="css-blurry-gradient-blue"></div>
     <div class="css-blurry-gradient-green"></div>
     <div class="ml-3 flex justify-center items-center max-w-2xl h-96">
       <div class="flex flex-col space-y-2">
         <h1 class="text-white text-lg lg:text-xl">Olá. Meu nome é</h1>
         <span class="text-5xl text-white">Meena Hiwatashi</span>
-        <span class="text-xl lg:text-2xl text-[#43D9AD] typewriter-animation typewriter-text max-w-fit">> Desenvolvedora
+        <span class="text-xl lg:text-2xl text-[#43D9AD] typewriter-animation typewriter-text max-w-fit">>
+          Desenvolvedora
           Web</span>
       </div>
     </div>
