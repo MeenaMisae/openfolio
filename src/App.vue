@@ -54,7 +54,7 @@ function toggleMenu(event) {
               </RouterLink>
             </li>
             <li class="h-14 flex items-center lg:w-40">
-              <RouterLink to="/contacts"
+              <RouterLink to="/contact"
                 class="w-full h-full flex items-center justify-center lg:border-[#1E2D3D] lg:border"
                 @click="showMenu = false"
                 activeClass="text-white font-semibold border-l-[#FEA55F] border-l-2 lg:border-b-[#FEA55F] lg:border-b-2 ">
