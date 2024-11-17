@@ -24,10 +24,44 @@ function toggleMenu(event) {
   <main class="bg-[#010C15] p-4 h-screen overflow-auto">
     <div class="bg-[#011627] border-[#1E2D3D] border-2 rounded-xl overflow-auto h-full">
       <nav class="sticky top-0 w-full rounded bg-[#011627] z-10 relative">
-        <ul class="text-[#607B96] h-14 border-[#1E2D3D] border-b-2 p-5 flex items-center justify-between">
-          <li>
+        <ul
+          class="text-[#607B96] h-14 border-[#1E2D3D] border-b-2 p-5 flex items-center justify-between lg:justify-normal">
+          <li class="lg:w-72">
             meena-hiwatashi
           </li>
+          <span class="hidden lg:flex">
+            <li class="h-14 flex items-center lg:w-40">
+              <RouterLink to="/" class="w-full h-full flex items-center justify-center lg:border-[#1E2D3D] lg:border"
+                @click="showMenu = false"
+                activeClass="text-white font-semibold border-l-[#FEA55F] border-l-2 lg:border-b-[#FEA55F] lg:border-b-2 ">
+                <span class="ml-4 lg:ml-0">_olá</span>
+              </RouterLink>
+            </li>
+            <li class="h-14 flex items-center lg:w-40">
+              <RouterLink to="/about"
+                class="w-full h-full flex items-center justify-center lg:border-[#1E2D3D] lg:border"
+                @click="showMenu = false"
+                activeClass="text-white font-semibold border-l-[#FEA55F] border-l-2 lg:border-b-[#FEA55F] lg:border-b-2 ">
+                <span class="ml-4 lg:ml-0">_sobre-mim</span>
+              </RouterLink>
+            </li>
+            <li class="h-14 flex items-center lg:w-40">
+              <RouterLink to="/projects"
+                class="w-full h-full flex items-center justify-center lg:border-[#1E2D3D] lg:border"
+                @click="showMenu = false"
+                activeClass="text-white font-semibold border-l-[#FEA55F] border-l-2 lg:border-b-[#FEA55F] lg:border-b-2 ">
+                <span class="ml-4 lg:ml-0">_projetos</span>
+              </RouterLink>
+            </li>
+            <li class="h-14 flex items-center lg:w-40">
+              <RouterLink to="/contacts"
+                class="w-full h-full flex items-center justify-center lg:border-[#1E2D3D] lg:border"
+                @click="showMenu = false"
+                activeClass="text-white font-semibold border-l-[#FEA55F] border-l-2 lg:border-b-[#FEA55F] lg:border-b-2 ">
+                <span class="ml-4 lg:ml-0">_contatos</span>
+              </RouterLink>
+            </li>
+          </span>
           <li class="lg:hidden">
             <button @click="toggleMenu">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" v-show="!showMenu">
@@ -42,7 +76,7 @@ function toggleMenu(event) {
             </button>
           </li>
         </ul>
-        <div v-show="showMenu" class="absolute top-full left-0 w-full z-50 bg-[#011627]" ref="menu">
+        <div v-show="showMenu" class="absolute top-full left-0 w-full bg-[#011627]" ref="menu">
           <ul class="text-white">
             <li class="h-14 flex items-center border-b border-b-[#1E2D3D]">
               <RouterLink to="/" class="w-full h-full flex items-center" @click="showMenu = false"
@@ -53,7 +87,7 @@ function toggleMenu(event) {
             <li class="h-14 flex items-center border-b border-b-[#1E2D3D]">
               <RouterLink to="/about" class="w-full h-full flex items-center" @click="showMenu = false"
                 activeClass="font-semibold border-l-[#FEA55F] border-l-2">
-                <span class=" ml-4">_sobre-mim</span>
+                <span class="ml-4">_sobre-mim</span>
               </RouterLink>
             </li>
             <li class="h-14 flex items-center border-b border-b-[#1E2D3D]">
