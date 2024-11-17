@@ -3,6 +3,8 @@ import { ref } from 'vue';
 const topic = ref()
 const showContent = ref(false)
 const content = ref()
+const tabs = ref([])
+
 function loadTopic(title, isOpen) {
   if (isOpen) {
     showContent.value = isOpen
@@ -21,6 +23,12 @@ function loadTopic(title, isOpen) {
   }
 }
 function loadContent(title) {
+  if (title && !tabs.value.includes(title)) {
+    tabs.value.push(title)
+  }
+  if (!showContent.value && tabs.value.length > 1) {
+    showContent.value = true
+  }
   if (title === 'bio') {
     return content.value = 'Olá, meu nome é Meena, tenho 23 anos e sou uma desenvolvedora júnior apaixonada por tecnologia e inovação. 🧑‍💻 <br><br> Estou sempre em busca de novos desafios e oportunidades para crescer, tanto na minha carreira quanto nas minhas paixões pessoais :)'
   }
@@ -46,15 +54,27 @@ function closeChildren(title, isOpen) {
     })
   }
 }
+function closeTab(index, event) {
+  event.stopPropagation()
+  if (tabs.value.length > 1) {
+    loadContent(tabs.value[index + 1])
+  } else {
+    showContent.value = false
+  }
+  if (index === (tabs.value.length - 1)) {
+    loadContent(tabs.value[index - 1])
+  }
+  tabs.value.splice(index, 1)
+}
 
 </script>
 <template>
-  <div class="pb-3">
-    <div class="h-16 flex items-center pl-5">
+  <div class="pb-3 lg:flex">
+    <div class="h-16 flex items-center pl-5 lg:hidden">
       <h1 class="text-white">_sobre-mim</h1>
     </div>
-    <div class="space-y-1">
-      <details class="bg-[#1E2D3D]" @toggle="closeChildren('pessoal', $event.target.open)" data-parent="pessoal">
+    <div class="space-y-1 lg:w-[23.3rem] lg:space-y-3 lg:mt-3">
+      <details class="bg-[#1E2D3D]" @toggle="closeChildren('pessoal', $event.target.open)" data-parent="pessoal" open>
         <summary class="text-white pl-5 py-2">
           <span class="ml-2">pessoal</span>
         </summary>
@@ -121,8 +141,23 @@ function closeChildren(title, isOpen) {
         </details>
       </details>
     </div>
-    <div class="px-2 mt-6">
-      <div class="flex gap-x-3 items-center mb-3" v-show="showContent">
+    <div class="lg:relative hidden lg:flex">
+      <div class="absolute flex items-center text-[#607B96]">
+        <div class="border-[#1E2D3D] border border-y-0 w-56 h-12 flex items-center px-5 justify-between"
+          v-for="(tab, index) in tabs" :key="index" @click.prevent="loadContent(tab)">
+          <span>{{ tab }}</span>
+          <span @click="closeTab(index, $event)">
+            <svg width="13" height="13" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M5.10015 4.20762L8.81265 0.495117L9.87315 1.55562L6.16065 5.26812L9.87315 8.98062L8.81265 10.0411L5.10015 6.32862L1.38765 10.0411L0.327148 8.98062L4.03965 5.26812L0.327148 1.55562L1.38765 0.495117L5.10015 4.20762Z"
+                fill="#607B96" />
+            </svg>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="px-2 mt-6 lg:px-8 lg:border lg:mt-[3.2rem] lg:w-full lg:h-[78vh] lg:border-[#1E2D3D] lg:border-r-0">
+      <div class="flex gap-x-3 items-center mb-3 lg:mt-6" v-show="showContent">
         <img src="/images/me.png" alt="" class="object-cover rounded-full w-12 h-12">
         <div class="flex flex-col">
           <span class="text-[#5565E8] font-bold">@meena.hiwa</span>
@@ -131,7 +166,7 @@ function closeChildren(title, isOpen) {
       </div>
       <div class="flex items-center" v-show="showContent">
         <div
-          class="bg-[#011221] p-4 rounded-lg border-[1px] w-full max-h-dvh overflow-y-auto border-[#1E2D3D] text-[#D8DEE9] font-mono"
+          class="bg-[#011221] p-4 rounded-lg border-[1px] w-full max-h-dvh overflow-y-auto border-[#1E2D3D] text-[#D8DEE9] font-mono lg:max-w-5xl"
           v-html="content">
         </div>
       </div>
