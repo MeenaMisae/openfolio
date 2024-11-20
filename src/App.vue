@@ -23,47 +23,31 @@ function toggleMenu(event) {
 <template>
   <main class="bg-[#010C15] p-4 h-screen overflow-auto">
     <div class="bg-[#011627] border-[#1E2D3D] border-2 rounded-xl overflow-auto h-full">
-      <nav class="sticky top-0 w-full rounded bg-[#011627] z-10 relative">
-        <ul
-          class="text-[#607B96] h-14 border-[#1E2D3D] border-b-2 p-5 flex items-center justify-between lg:justify-normal">
-          <li class="lg:w-72">
-            meena-hiwatashi
+      <nav class="sticky top-0 w-full rounded bg-[#011627] z-10">
+        <ul class="grid lg:grid-cols-12 grid-cols-3  text-[#607B96] border-[#1E2D3D] border-b-2">
+          <li class="flex items-center h-14 col-span-2 w-full ml-5">meena-hiwatashi</li>
+          <li class="border-x border-x-[#1E2D3D] items-center justify-center hidden lg:flex">
+            <RouterLink to="/" class="w-full h-full flex items-center justify-center"
+              activeClass="text-white font-semibold lg:border-b-[#FEA55F] lg:border-b-2">
+              <span>_olá</span>
+            </RouterLink>
           </li>
-          <span class="hidden lg:flex">
-            <li class="h-14 flex items-center lg:w-40">
-              <RouterLink to="/" class="w-full h-full flex items-center justify-center lg:border-[#1E2D3D] lg:border"
-                @click="showMenu = false"
-                activeClass="text-white font-semibold border-l-[#FEA55F] border-l-2 lg:border-b-[#FEA55F] lg:border-b-2 ">
-                <span class="ml-4 lg:ml-0">_olá</span>
-              </RouterLink>
-            </li>
-            <li class="h-14 flex items-center lg:w-40">
-              <RouterLink to="/about"
-                class="w-full h-full flex items-center justify-center lg:border-[#1E2D3D] lg:border"
-                @click="showMenu = false"
-                activeClass="text-white font-semibold border-l-[#FEA55F] border-l-2 lg:border-b-[#FEA55F] lg:border-b-2 ">
-                <span class="ml-4 lg:ml-0">_sobre-mim</span>
-              </RouterLink>
-            </li>
-            <li class="h-14 flex items-center lg:w-40">
-              <RouterLink to="/projects"
-                class="w-full h-full flex items-center justify-center lg:border-[#1E2D3D] lg:border"
-                @click="showMenu = false"
-                activeClass="text-white font-semibold border-l-[#FEA55F] border-l-2 lg:border-b-[#FEA55F] lg:border-b-2 ">
-                <span class="ml-4 lg:ml-0">_projetos</span>
-              </RouterLink>
-            </li>
-            <li class="h-14 flex items-center lg:w-40">
-              <RouterLink to="/contact"
-                class="w-full h-full flex items-center justify-center lg:border-[#1E2D3D] lg:border"
-                @click="showMenu = false"
-                activeClass="text-white font-semibold border-l-[#FEA55F] border-l-2 lg:border-b-[#FEA55F] lg:border-b-2 ">
-                <span class="ml-4 lg:ml-0">_contatos</span>
-              </RouterLink>
-            </li>
-          </span>
-          <li class="lg:hidden">
-            <button @click="toggleMenu">
+          <li class="border-x border-x-[#1E2D3D] items-center justify-center hidden lg:flex truncate">
+            <RouterLink to="/about" class="w-full h-full flex items-center justify-center"
+              activeClass="text-white font-semibold lg:border-b-[#FEA55F] lg:border-b-2">
+              <span>_sobre-mim</span>
+            </RouterLink>
+          </li>
+          <li class="border-x border-x-[#1E2D3D] items-center justify-center hidden lg:flex">
+            <RouterLink to="/projects" class="w-full h-full flex items-center justify-center"
+              activeClass="text-white font-semibold lg:border-b-[#FEA55F] lg:border-b-2">
+              <span>_projetos</span>
+            </RouterLink>
+          </li>
+          <li class="border-l border-l-[#1E2D3D] items-center justify-center hidden lg:flex col-start-12">
+            _me-contate</li>
+          <li class="lg:hidden flex items-center justify-end">
+            <button @click="toggleMenu" class="w-full flex justify-end pr-5 h-full items-center">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" v-show="!showMenu">
                 <path d="M3 4H21V6H3V4ZM3 11H21V13H3V11ZM3 18H21V20H3V18Z" fill="#607B96" stroke="#607B96"></path>
               </svg>
