@@ -22,6 +22,7 @@ function loadTopic(title, isOpen) {
     }
   }
 }
+const selectedTab = ref()
 function loadContent(title) {
   if (title && !tabs.value.includes(title)) {
     tabs.value.push(title)
@@ -29,6 +30,7 @@ function loadContent(title) {
   if (!showContent.value && tabs.value.length > 1) {
     showContent.value = true
   }
+  selectedTab.value = title
   if (title === 'bio') {
     return content.value = 'Olá, meu nome é Meena, tenho 23 anos e sou uma desenvolvedora júnior apaixonada por tecnologia e inovação. 🧑‍💻 <br><br> Estou sempre em busca de novos desafios e oportunidades para crescer, tanto na minha carreira quanto nas minhas paixões pessoais :)'
   }
@@ -73,13 +75,13 @@ function closeTab(index, event) {
     <div class="h-16 flex items-center pl-5 lg:hidden">
       <h1 class="text-white">_sobre-mim</h1>
     </div>
-    <div class="space-y-1 lg:w-[23.3rem] lg:space-y-3 lg:mt-3">
+    <div class="space-y-1 lg:w-[23rem] lg:max-w-[23rem] lg:space-y-3 lg:mt-3">
       <details class="bg-[#1E2D3D]" @toggle="closeChildren('pessoal', $event.target.open)" data-parent="pessoal" open>
         <summary class="text-white pl-5 py-2">
           <span class="ml-2">pessoal</span>
         </summary>
         <details class="bg-[#011627] pl-5 text-[#607B96]" @toggle="loadTopic('bio', $event.target.open)"
-          data-topic="bio" :class="{ 'text-white': topic === 'bio' }">
+          data-topic="bio" :class="{ 'text-white': topic === 'bio' }" open>
           <summary class="py-2 accordeon flex gap-2">
             <svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
@@ -141,12 +143,13 @@ function closeTab(index, event) {
         </details>
       </details>
     </div>
-    <div class="lg:relative hidden lg:flex">
-      <div class="absolute flex items-center text-[#607B96]">
-        <div class="border-[#1E2D3D] border border-y-0 w-56 h-12 flex items-center px-5 justify-between"
+    <div class="px-2 lg:px-0 lg:border lg:w-full lg:h-[88vh] lg:border-[#1E2D3D] lg:border-r-0 lg:border-y-0">
+      <div class="lg:flex text-[#607B96] hidden cursor-pointer">
+        <div
+          class="border-[#1E2D3D] border border-y-0 w-56 max-w-56 h-12 flex items-center px-5 justify-between border-l-0"
           v-for="(tab, index) in tabs" :key="index" @click.prevent="loadContent(tab)">
-          <span>{{ tab }}</span>
-          <span @click="closeTab(index, $event)">
+          <span :class="{ 'text-white font-semibold': tab === selectedTab }">{{ tab }}</span>
+          <span @click="closeTab(index, $event)" class="hover:opacity-25 h-full flex items-center">
             <svg width="13" height="13" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
                 d="M5.10015 4.20762L8.81265 0.495117L9.87315 1.55562L6.16065 5.26812L9.87315 8.98062L8.81265 10.0411L5.10015 6.32862L1.38765 10.0411L0.327148 8.98062L4.03965 5.26812L0.327148 1.55562L1.38765 0.495117L5.10015 4.20762Z"
@@ -155,16 +158,16 @@ function closeTab(index, event) {
           </span>
         </div>
       </div>
-    </div>
-    <div class="px-2 mt-6 lg:px-8 lg:border lg:mt-[3.2rem] lg:w-full lg:h-[78vh] lg:border-[#1E2D3D] lg:border-r-0">
-      <div class="flex gap-x-3 items-center mb-3 lg:mt-6" v-show="showContent">
-        <img src="/images/me.png" alt="" class="object-cover rounded-full w-12 h-12">
-        <div class="flex flex-col">
-          <span class="text-[#5565E8] font-bold">@meena.hiwa</span>
-          <span class="text-[#607B96] text-sm">5 meses atrás</span>
+      <div class="lg:border-t lg:border-[#1E2D3D]">
+        <div v-show="showContent" class="flex gap-x-3 items-center mb-3 mt-6 lg:ml-6 ml-2">
+          <img src="/images/me.png" alt="" class="object-cover rounded-full w-12 h-12">
+          <div class="flex flex-col">
+            <span class="text-[#5565E8] font-bold">@meena.hiwa</span>
+            <span class="text-[#607B96] text-sm">5 meses atrás</span>
+          </div>
         </div>
       </div>
-      <div class="flex items-center" v-show="showContent">
+      <div class="flex items-center lg:ml-4" v-show="showContent">
         <div
           class="bg-[#011221] p-4 rounded-lg border-[1px] w-full max-h-dvh overflow-y-auto border-[#1E2D3D] text-[#D8DEE9] font-mono lg:max-w-5xl"
           v-html="content">
