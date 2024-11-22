@@ -2,7 +2,7 @@
 </script>
 
 <template>
-  <div class="flex justify-between flex-col h-[70vh] overflow-hidden pl-3 lg:px-48">
+  <div class="flex justify-between flex-col h-full overflow-hidden pl-3 lg:px-48">
     <div class="css-blurry-gradient-blue"></div>
     <div class="css-blurry-gradient-green"></div>
     <div class="ml-3 flex justify-center items-center max-w-2xl h-96">
