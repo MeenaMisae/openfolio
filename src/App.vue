@@ -21,26 +21,28 @@ function toggleMenu(event) {
 </script>
 
 <template>
-  <main class="bg-[#010C15] p-4 h-screen overflow-auto">
-    <div class="bg-[#011627] border-[#1E2D3D] border-2 rounded-xl overflow-auto h-full">
-      <nav class="sticky top-0 w-full rounded bg-[#011627] z-10">
-        <ul class="grid lg:grid-cols-12 grid-cols-3  text-[#607B96] border-[#1E2D3D] border-b-2">
-          <li class="flex items-center h-14 col-span-2 w-full ml-5">meena-hiwatashi</li>
+  <main class="min-h-screen flex flex-col border-[#1E2D3D] border">
+    <div class="rounded-lg h-full flex flex-col flex-1">
+      <nav class="sticky top-0 w-full rounded z-10">
+        <ul class="grid lg:grid-cols-12 grid-cols-3 text-[#607B96] border-[#1E2D3D] border-b">
+          <li class="flex items-center h-14 lg:col-span-4 w-full px-5 col-span-2 lg:justify-center text-2xl">Meena
+            Hiwatashi
+          </li>
           <li class="border-x border-x-[#1E2D3D] items-center justify-center hidden lg:flex">
             <RouterLink to="/" class="w-full h-full flex items-center justify-center"
-              activeClass="text-white font-semibold lg:border-b-[#FEA55F] lg:border-b-2">
+              activeClass="text-white font-semibold lg:border-b-[#FEA55F] lg:border-b-[3px]">
               <span>_olá</span>
             </RouterLink>
           </li>
           <li class="border-x border-x-[#1E2D3D] items-center justify-center hidden lg:flex truncate">
             <RouterLink to="/about" class="w-full h-full flex items-center justify-center"
-              activeClass="text-white font-semibold lg:border-b-[#FEA55F] lg:border-b-2">
+              activeClass="text-white font-semibold lg:border-b-[#FEA55F] lg:border-b-[3px]">
               <span>_sobre-mim</span>
             </RouterLink>
           </li>
           <li class="border-x border-x-[#1E2D3D] items-center justify-center hidden lg:flex">
             <RouterLink to="/projects" class="w-full h-full flex items-center justify-center"
-              activeClass="text-white font-semibold lg:border-b-[#FEA55F] lg:border-b-2">
+              activeClass="text-white font-semibold lg:border-b-[#FEA55F] lg:border-b-[3px]">
               <span>_projetos</span>
             </RouterLink>
           </li>
@@ -89,7 +91,34 @@ function toggleMenu(event) {
           </ul>
         </div>
       </nav>
-      <RouterView />
+      <div class="flex flex-1 overflow-auto">
+        <RouterView />
+      </div>
+      <footer class="border-[#1E2D3D] text-[#607B96] flex border-y">
+        <div class="flex justify-start w-full h-12">
+          <span class="h-full items-center flex px-5">
+            me encontre:
+          </span>
+          <a href=""
+            class="hover:bg-[#111820] px-4 items-center flex hover:stroke-[#E8B44F]  stroke-[#70879E] border-[#1E2D3D] border-x transition-colors duration-200 ease-in-out">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+              <rect x="2" y="9" width="4" height="12"></rect>
+              <circle cx="4" cy="4" r="2"></circle>
+            </svg>
+          </a>
+          <a href=""
+            class="hover:bg-[#111820] px-4 items-center flex hover:stroke-[#E8B44F]  stroke-[#70879E] border-[#1E2D3D] border-x transition-colors duration-200 ease-in-out">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path
+                d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+              </path>
+            </svg>
+          </a>
+        </div>
+      </footer>
     </div>
   </main>
 </template>
