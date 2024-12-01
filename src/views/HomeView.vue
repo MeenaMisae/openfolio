@@ -1,35 +1,122 @@
 <script setup>
+import { onMounted } from 'vue';
+import Swiper from 'swiper/bundle';
+import 'swiper/css/bundle';
+
+onMounted(() => {
+  const swiper = new Swiper('.swiper', {
+    effect: 'coverflow',
+    loop: true,
+    autoplay: true,
+    direction: "vertical",
+    slidesPerView: 1,
+    initialSlide: 0,
+    keyboardControl: true,
+    mousewheelControl: true,
+    lazyLoading: true,
+    lazyLoadingInPrevNext: true,
+    coverflow: {
+      rotate: 0,
+      stretch: 150,
+      depth: 200,
+      modifier: 1,
+      slideShadows: false,
+    },
+  });
+  const canvas = document.querySelector('canvas');
+  if (canvas) {
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    function createParticle() {
+      return {
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        size: Math.random() * 1 + 0.001,
+        dx: (Math.random() - 0.5) * 1,
+        dy: (Math.random() - 0.5) * 1,
+        opacity: Math.random() * 0.5 + 0.5,
+      };
+    }
+    let particles = Array.from({ length: 40 }, createParticle);
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles = particles.filter(p => {
+        p.x += p.dx;
+        p.y += p.dy;
+
+        if (p.x < 0 || p.x > canvas.width || p.y < 0 || p.y > canvas.height) {
+          return false;
+        }
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 255, 255, ${p.opacity})`;
+        ctx.fill();
+        return true;
+      });
+      while (particles.length < 40) {
+        particles.push(createParticle());
+      }
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+  } else {
+    console.error("Canvas element not found.");
+  }
+})
 </script>
 
 <template>
-  <div class="flex justify-between flex-col h-full overflow-hidden pl-3 lg:px-48">
-    <div class="css-blurry-gradient-blue"></div>
-    <div class="css-blurry-gradient-green"></div>
-    <div class="ml-3 flex justify-center items-center max-w-2xl h-96">
-      <div class="flex flex-col space-y-2">
-        <h1 class="text-white text-lg lg:text-xl">Olá. Meu nome é</h1>
-        <span class="text-5xl text-white">Meena Hiwatashi</span>
-        <span class="text-xl lg:text-2xl text-[#43D9AD] typewriter-animation typewriter-text max-w-fit">>
-          Desenvolvedora
-          Web</span>
+  <canvas class="w-full h-full fixed z-0 top-0 left-0 pointer-events-none"></canvas>
+  <div class="flex flex-col w-full items-center gap-8  px-8 pt-12 lg:flex-row">
+    <div class="flex flex-col w-full items-center">
+      <span class="text-[#8095AB]">Olá, eu sou</span>
+      <h1 class="text-[30pt] font-semibold tracking-tighter text-white typewriter-animation typewriter-text max-w-fit">
+        Meena Hiwatashi</h1>
+      <p class="text-[#7fcaff] text-center w-[350px]">
+        Sou uma desenvolvedora de software fullstack com foco principal no desenvolvimento front-end.
+      </p>
+    </div>
+    <div>
+      <div class="swiper w-full h-64">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide rounded-lg bg-black w-full h-48 overflow-hidden px-6 border-[#1E2D3D] border">
+            <div class="h-12 flex items-center">
+              <span class="text-[#E8B44F] font-semibold">_wire_cotton</span>
+            </div>
+            <div>
+              <img src="/images/projects/wire-cotton.svg" alt="" class="w-full h-full object-cover rounded">
+            </div>
+          </div>
+          <div class="swiper-slide rounded-lg bg-black w-full h-48 overflow-hidden px-6 border-[#1E2D3D] border">
+            <div class="h-12 flex items-center">
+              <span class="text-[#E8B44F] font-semibold">_nps</span>
+            </div>
+            <div>
+              <img src="/images/projects/nps.png" alt="" class="w-full h-full object-cover rounded">
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="ml-3 flex justify-center items-center max-w-2xl">
-      <div class="space-y-3">
-        <span class="text-[#607B96] text-sm">// acesse meu perfil no github</span>
-        <p class="text-white">
-          <span class="text-[#4D5BCE]">const </span>
-          <span class="text-[#43D9AD]">githubLink</span>
-          =
-          <a href="https://github.com/MeenaMisae" target="_blank">
-            <span class="text-[#E99287] underline">“https://github.com/MeenaMisae”</span>
-          </a>
-        </p>
-      </div>
+    <a class="btn" href="https://github.com/MeenaMisae/portfolio" target="_blank">
+      Gostou? Clona pra você!
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#70879E"
+        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="7" y1="17" x2="17" y2="7"></line>
+        <polyline points="7 7 17 7 17 17"></polyline>
+      </svg>
+    </a>
+    <div class="flex items-center flex-col gap-4">
+      <img src="/images/me.png" alt="" class="object-cover rounded-full w-16 h-16 border-[3.5px] border-[#303a4b]">
+      <span class="bg-[#111821] text-white h-[29px] rounded-lg p-3 flex items-center text-sm">solicitar_contato</span>
     </div>
   </div>
 </template>
-
+<!-- <div class="css-blurry-gradient-blue"></div>
+    <div class="css-blurry-gradient-green"></div> -->
 <style scoped>
 .typewriter-text {
   width: fit-content;
