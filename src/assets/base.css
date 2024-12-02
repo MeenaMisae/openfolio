@@ -12,6 +12,9 @@ summary.accordeon::before {
     content: '';
     background: url('images/arrow.svg') no-repeat;
 }
+details[open] > summary.accordeon::before {
+  transform: rotate(90deg);
+}
 
 .btn {
   border-bottom-width: 1px;
@@ -35,10 +38,6 @@ summary.accordeon::before {
 .btn:hover {
   background-color: #04060a;
 }
-
-details[open] > summary.accordeon::before {
-    transform: rotate(90deg);
-  }
 
   input[type="checkbox"] {
     appearance: none;
@@ -91,7 +90,7 @@ details[open] > summary.accordeon::before {
   
   .slide-down-enter-active,
   .slide-down-leave-active {
-    transition: max-height 0.3s ease-out;
+    transition: max-height 0.2s ease-out;
     overflow: hidden;
   }
   
