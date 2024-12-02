@@ -13,8 +13,6 @@ onMounted(() => {
     initialSlide: 0,
     keyboardControl: true,
     mousewheelControl: true,
-    lazyLoading: true,
-    lazyLoadingInPrevNext: true,
     coverflow: {
       rotate: 0,
       stretch: 150,
@@ -69,49 +67,64 @@ onMounted(() => {
 </script>
 
 <template>
-  <canvas class="w-full h-full fixed z-0 top-0 left-0 pointer-events-none"></canvas>
-  <div class="flex flex-col w-full items-center gap-8  px-8 pt-12 lg:flex-row">
-    <div class="flex flex-col w-full items-center">
-      <span class="text-[#8095AB]">Olá, eu sou</span>
-      <h1 class="text-[30pt] font-semibold tracking-tighter text-white typewriter-animation typewriter-text max-w-fit">
-        Meena Hiwatashi</h1>
-      <p class="text-[#7fcaff] text-center w-[350px]">
-        Sou uma desenvolvedora de software fullstack com foco principal no desenvolvimento front-end.
-      </p>
-    </div>
-    <div>
-      <div class="swiper w-full h-64">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide rounded-lg bg-black w-full h-48 overflow-hidden px-6 border-[#1E2D3D] border">
-            <div class="h-12 flex items-center">
-              <span class="text-[#E8B44F] font-semibold">_wire_cotton</span>
-            </div>
-            <div>
-              <img src="/images/projects/wire-cotton.svg" alt="" class="w-full h-full object-cover rounded">
-            </div>
-          </div>
-          <div class="swiper-slide rounded-lg bg-black w-full h-48 overflow-hidden px-6 border-[#1E2D3D] border">
-            <div class="h-12 flex items-center">
-              <span class="text-[#E8B44F] font-semibold">_nps</span>
-            </div>
-            <div>
-              <img src="/images/projects/nps.png" alt="" class="w-full h-full object-cover rounded">
+  <div class="flex w-full flex-col py-5">
+    <div class="flex-1 flex justify-center flex-col items-center w-full">
+      <div class="absolute top-20 h-fit w-full justify-end lg:flex hidden">
+        <div class="flex flex-col items-center">
+          <img src="/images/me.png" alt="" class="object-cover rounded-full w-16 h-16 border-[3.5px] border-[#303a4b]">
+          <span
+            class="bg-[#111821] text-white h-[29px] rounded-lg p-3 flex items-center text-sm">solicitar_contato</span>
+        </div>
+      </div>
+      <div class="flex lg:flex-1 flex-col w-full items-center justify-center px-8 lg:flex-row gap-6">
+        <div class="flex flex-col items-center lg:items-start lg:gap-3">
+          <span class="text-[#8095AB]">Olá, eu sou</span>
+          <h1
+            class="text-[25pt] lg:text-[40pt] font-semibold tracking-tighter text-white typewriter-animation typewriter-text max-w-fit">
+            Meena Hiwatashi</h1>
+          <p class="text-[#7fcaff] text-center w-[350px] lg:w-[520px] lg:text-start text-[13pt]">
+            Sou uma desenvolvedora de software fullstack com foco principal no desenvolvimento front-end.
+          </p>
+        </div>
+        <div class="lg:max-w-xl">
+          <div class="swiper w-full lg:h-72 h-56">
+            <div class="swiper-wrapper">
+              <div
+                class="swiper-slide rounded-lg bg-black w-full h-48 overflow-hidden lg:px-3 px-6 border-[#1E2D3D] border">
+                <div class="h-12 flex items-center">
+                  <span class="text-[#E8B44F] font-semibold">_wire_cotton</span>
+                </div>
+                <div class="w-full">
+                  <img src="/images/projects/wire-cotton.svg" alt="" class="w-full h-full object-cover rounded">
+                </div>
+              </div>
+              <div class="swiper-slide rounded-lg bg-black w-full h-48 overflow-hidden px-6 border-[#1E2D3D] border">
+                <div class="h-12 flex items-center">
+                  <span class="text-[#E8B44F] font-semibold">_nps</span>
+                </div>
+                <div>
+                  <img src="/images/projects/nps.png" alt="" class="w-full h-full object-cover rounded">
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <a class="btn" href="https://github.com/MeenaMisae/portfolio" target="_blank">
-      Gostou? Clona pra você!
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#70879E"
-        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <line x1="7" y1="17" x2="17" y2="7"></line>
-        <polyline points="7 7 17 7 17 17"></polyline>
-      </svg>
-    </a>
-    <div class="flex items-center flex-col gap-4">
-      <img src="/images/me.png" alt="" class="object-cover rounded-full w-16 h-16 border-[3.5px] border-[#303a4b]">
-      <span class="bg-[#111821] text-white h-[29px] rounded-lg p-3 flex items-center text-sm">solicitar_contato</span>
+      <div class="flex flex-col gap-4 pt-4">
+        <a class="btn" href="https://github.com/MeenaMisae/portfolio" target="_blank">
+          Gostou? Clona pra você!
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="#70879E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
+          </svg>
+        </a>
+        <div class="flex items-center flex-col lg:hidden">
+          <img src="/images/me.png" alt="" class="object-cover rounded-full w-16 h-16 border-[3.5px] border-[#303a4b]">
+          <span
+            class="bg-[#111821] text-white h-[29px] rounded-lg p-3 flex items-center text-sm">solicitar_contato</span>
+        </div>
+      </div>
     </div>
   </div>
 </template>
