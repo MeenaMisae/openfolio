@@ -104,7 +104,7 @@ function closeTab(index, event) {
         </details>
         <details class="pl-5 text-[#607B96]" @toggle="loadTopic('educacao', $event.target.open)" data-topic="educacao"
           :class="{ 'text-white': topic === 'educacao' }">
-          <summary class=" py-2 accordeon flex gap-2 text-[#607B96]">
+          <summary class="py-2 accordeon flex gap-2">
             <svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
                 d="M15.0802 3.61111V12.2778C15.0802 12.4693 15.0041 12.653 14.8687 12.7885C14.7332 12.9239 14.5495 13 14.358 13H1.35796C1.16642 13 0.982719 12.9239 0.847276 12.7885C0.711833 12.653 0.635742 12.4693 0.635742 12.2778V2.88889H14.358C14.5495 2.88889 14.7332 2.96498 14.8687 3.10042C15.0041 3.23587 15.0802 3.41957 15.0802 3.61111ZM8.15696 1.44444H0.635742V0.722222C0.635742 0.530677 0.711833 0.346977 0.847276 0.211534C0.982719 0.076091 1.16642 0 1.35796 0H6.71252L8.15696 1.44444Z"
@@ -116,7 +116,7 @@ function closeTab(index, event) {
       </details>
       <details @toggle="closeChildren('profissional', $event.target.open)" data-parent="profissional">
         <summary class="text-white pl-5 py-2 bg-[#1E2D3D]">
-          <span class=" ml-2">profissional</span>
+          <span class="ml-2">profissional</span>
         </summary>
         <details class="pl-5 text-[#607B96]" @toggle="loadTopic('07/2024', $event.target.open)" data-topic="07/2024"
           :class="{ 'text-white': topic === '07/2024' }">
@@ -143,7 +143,7 @@ function closeTab(index, event) {
       </details>
     </div>
     <div class="lg:w-full lg:col-span-10">
-      <div class="lg:grid lg:grid-cols-8 lg:w-full h-10 hidden">
+      <div class="lg:grid lg:grid-cols-8 lg:w-full h-10 hidden border-b-2 border-[#1E2D3D]">
         <div
           class="text-[#607B96] cursor-pointer flex items-center justify-between px-4 border-[#1E2D3D] border border-y-0"
           v-for="(tab, index) in tabs" :key="index" @click.prevent="loadContent(tab)">
@@ -157,18 +157,16 @@ function closeTab(index, event) {
           </span>
         </div>
       </div>
-      <div class="lg:border-t lg:border-[#1E2D3D]">
-        <div v-show="showContent" class="flex gap-x-3 items-center mb-3 mt-6 lg:ml-6 ml-2">
+      <div class="flex flex-col px-4 py-3 lg:p-6" v-show="showContent">
+        <div class="flex gap-x-3 items-center mb-3">
           <img src="/images/me.png" alt="" class="object-cover rounded-full w-12 h-12">
           <div class="flex flex-col">
             <span class="text-[#5565E8] font-bold">@meena.hiwa</span>
             <span class="text-[#607B96] text-sm">5 meses atrás</span>
           </div>
         </div>
-      </div>
-      <div class="flex items-center lg:ml-4" v-show="showContent">
         <div
-          class="bg-[#011221] p-4 rounded-lg border-[1px] w-full max-h-dvh overflow-y-auto border-[#1E2D3D] text-[#D8DEE9] font-mono lg:max-w-5xl"
+          class="bg-[#12171F] p-4 rounded-lg border-[1px] w-full max-h-dvh overflow-y-auto border-[#1f2836] text-[#D8DEE9] font-mono lg:max-w-5xl"
           v-html="content">
         </div>
       </div>
