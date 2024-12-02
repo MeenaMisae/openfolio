@@ -71,17 +71,17 @@ function closeTab(index, event) {
 
 </script>
 <template>
-  <div class="pb-3 lg:flex">
+  <div class="grid grid-cols-1 lg:grid-cols-12 lg:flex-1 lg:h-auto lg:w-auto h-full w-full">
     <div class="h-16 flex items-center pl-5 lg:hidden">
       <h1 class="text-white">_sobre-mim</h1>
     </div>
-    <div class="space-y-1 lg:w-[23rem] lg:max-w-[23rem] lg:space-y-3 lg:mt-3">
-      <details class="bg-[#1E2D3D]" @toggle="closeChildren('pessoal', $event.target.open)" data-parent="pessoal" open>
-        <summary class="text-white pl-5 py-2">
+    <div class="lg:col-span-2 lg:w-full lg:border-x lg:border-x-[#1E2D3D] space-y-1">
+      <details @toggle="closeChildren('pessoal', $event.target.open)" data-parent="pessoal" open>
+        <summary class="text-white pl-5 py-2 bg-[#1E2D3D]">
           <span class="ml-2">pessoal</span>
         </summary>
-        <details class="bg-[#011627] pl-5 text-[#607B96]" @toggle="loadTopic('bio', $event.target.open)"
-          data-topic="bio" :class="{ 'text-white': topic === 'bio' }" open>
+        <details class="pl-5 text-[#607B96]" @toggle="loadTopic('bio', $event.target.open)" data-topic="bio"
+          :class="{ 'text-white': topic === 'bio' }" open>
           <summary class="py-2 accordeon flex gap-2">
             <svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
@@ -91,9 +91,9 @@ function closeTab(index, event) {
             bio
           </summary>
         </details>
-        <details class="bg-[#011627] pl-5 text-[#607B96]" @toggle="loadTopic('interesses', $event.target.open)"
+        <details class="pl-5 text-[#607B96]" @toggle="loadTopic('interesses', $event.target.open)"
           data-topic="interesses" :class="{ 'text-white': topic === 'interesses' }">
-          <summary class=" py-2 accordeon flex gap-2">
+          <summary class="py-2 accordeon flex gap-2">
             <svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
                 d="M15.0802 3.61111V12.2778C15.0802 12.4693 15.0041 12.653 14.8687 12.7885C14.7332 12.9239 14.5495 13 14.358 13H1.35796C1.16642 13 0.982719 12.9239 0.847276 12.7885C0.711833 12.653 0.635742 12.4693 0.635742 12.2778V2.88889H14.358C14.5495 2.88889 14.7332 2.96498 14.8687 3.10042C15.0041 3.23587 15.0802 3.41957 15.0802 3.61111ZM8.15696 1.44444H0.635742V0.722222C0.635742 0.530677 0.711833 0.346977 0.847276 0.211534C0.982719 0.076091 1.16642 0 1.35796 0H6.71252L8.15696 1.44444Z"
@@ -102,9 +102,9 @@ function closeTab(index, event) {
             interesses
           </summary>
         </details>
-        <details class="bg-[#011627] pl-5 text-[#607B96]" @toggle="loadTopic('educacao', $event.target.open)"
-          data-topic="educacao" :class="{ 'text-white': topic === 'educacao' }">
-          <summary class=" py-2 accordeon flex gap-2">
+        <details class="pl-5 text-[#607B96]" @toggle="loadTopic('educacao', $event.target.open)" data-topic="educacao"
+          :class="{ 'text-white': topic === 'educacao' }">
+          <summary class=" py-2 accordeon flex gap-2 text-[#607B96]">
             <svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
                 d="M15.0802 3.61111V12.2778C15.0802 12.4693 15.0041 12.653 14.8687 12.7885C14.7332 12.9239 14.5495 13 14.358 13H1.35796C1.16642 13 0.982719 12.9239 0.847276 12.7885C0.711833 12.653 0.635742 12.4693 0.635742 12.2778V2.88889H14.358C14.5495 2.88889 14.7332 2.96498 14.8687 3.10042C15.0041 3.23587 15.0802 3.41957 15.0802 3.61111ZM8.15696 1.44444H0.635742V0.722222C0.635742 0.530677 0.711833 0.346977 0.847276 0.211534C0.982719 0.076091 1.16642 0 1.35796 0H6.71252L8.15696 1.44444Z"
@@ -114,13 +114,12 @@ function closeTab(index, event) {
           </summary>
         </details>
       </details>
-      <details class="bg-[#1E2D3D]" @toggle="closeChildren('profissional', $event.target.open)"
-        data-parent="profissional">
-        <summary class="text-white pl-5 py-2">
-          <span class="ml-2">profissional</span>
+      <details @toggle="closeChildren('profissional', $event.target.open)" data-parent="profissional">
+        <summary class="text-white pl-5 py-2 bg-[#1E2D3D]">
+          <span class=" ml-2">profissional</span>
         </summary>
-        <details class="bg-[#011627] pl-5 text-[#607B96]" @toggle="loadTopic('07/2024', $event.target.open)"
-          data-topic="07/2024" :class="{ 'text-white': topic === '07/2024' }">
+        <details class="pl-5 text-[#607B96]" @toggle="loadTopic('07/2024', $event.target.open)" data-topic="07/2024"
+          :class="{ 'text-white': topic === '07/2024' }">
           <summary class="py-2 accordeon flex gap-2">
             <svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
@@ -130,8 +129,8 @@ function closeTab(index, event) {
             07/2024
           </summary>
         </details>
-        <details class="bg-[#011627] pl-5 text-[#607B96]" @toggle="loadTopic('07/2023', $event.target.open)"
-          data-topic="07/2023" :class="{ 'text-white': topic === '07/2023' }">
+        <details class="pl-5 text-[#607B96]" @toggle="loadTopic('07/2023', $event.target.open)" data-topic="07/2023"
+          :class="{ 'text-white': topic === '07/2023' }">
           <summary class="py-2 accordeon flex gap-2">
             <svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
@@ -143,13 +142,13 @@ function closeTab(index, event) {
         </details>
       </details>
     </div>
-    <div class="px-2 lg:px-0 lg:border lg:w-full lg:h-[88vh] lg:border-[#1E2D3D] lg:border-r-0 lg:border-y-0">
-      <div class="lg:flex text-[#607B96] hidden cursor-pointer">
+    <div class="lg:w-full lg:col-span-10">
+      <div class="lg:grid lg:grid-cols-8 lg:w-full h-10 hidden">
         <div
-          class="border-[#1E2D3D] border border-y-0 w-56 max-w-56 h-12 flex items-center px-5 justify-between border-l-0"
+          class="text-[#607B96] cursor-pointer flex items-center justify-between px-4 border-[#1E2D3D] border border-y-0"
           v-for="(tab, index) in tabs" :key="index" @click.prevent="loadContent(tab)">
           <span :class="{ 'text-white font-semibold': tab === selectedTab }">{{ tab }}</span>
-          <span @click="closeTab(index, $event)" class="hover:opacity-25 h-full flex items-center">
+          <span @click="closeTab(index, $event)" class="">
             <svg width="13" height="13" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
                 d="M5.10015 4.20762L8.81265 0.495117L9.87315 1.55562L6.16065 5.26812L9.87315 8.98062L8.81265 10.0411L5.10015 6.32862L1.38765 10.0411L0.327148 8.98062L4.03965 5.26812L0.327148 1.55562L1.38765 0.495117L5.10015 4.20762Z"
