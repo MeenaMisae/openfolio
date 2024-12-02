@@ -26,24 +26,28 @@ function toggleMenu(event) {
       <nav class="sticky top-0 w-full rounded z-10 bg-[#04060A] lg:bg-transparent">
         <ul class="grid lg:grid-cols-12 grid-cols-4 text-[#607B96] relative transition-all duration-300"
           :class="{ 'border-transparent': showMenu, 'border-b-[#1E2D3D]': !showMenu }">
-          <li class="flex items-center h-14 lg:col-span-4 w-full px-5 col-span-3 lg:justify-center text-2xl">Meena
+          <RouterLink to="/"
+            class="flex items-center h-14 lg:col-span-4 w-full px-5 col-span-3 lg:justify-center text-2xl">Meena
             Hiwatashi
-          </li>
+          </RouterLink>
           <li class="border-x border-x-[#1E2D3D] items-center justify-center hidden lg:flex">
-            <RouterLink to="/" class="w-full h-full flex items-center justify-center"
-              activeClass="text-white font-semibold lg:border-b-[#FEA55F] lg:border-b-[3px]">
+            <RouterLink to="/"
+              class="w-full h-full flex items-center justify-center hover:bg-[#111820] transition-colors duration-200 ease-in-out"
+              activeClass="text-white font-semibold border-b-[#C44656] border-b-[5px] bg-[#111820]">
               <span>_olá</span>
             </RouterLink>
           </li>
           <li class="border-x border-x-[#1E2D3D] items-center justify-center hidden lg:flex truncate">
-            <RouterLink to="/about" class="w-full h-full flex items-center justify-center"
-              activeClass="text-white font-semibold lg:border-b-[#FEA55F] lg:border-b-[3px]">
+            <RouterLink to="/about"
+              class="w-full h-full flex items-center justify-center hover:bg-[#111820] transition-colors duration-200 ease-in-out"
+              activeClass="text-white font-semibold border-b-[#C44656] border-b-[5px] bg-[#111820]">
               <span>_sobre-mim</span>
             </RouterLink>
           </li>
           <li class="border-x border-x-[#1E2D3D] items-center justify-center hidden lg:flex">
-            <RouterLink to="/projects" class="w-full h-full flex items-center justify-center"
-              activeClass="text-white font-semibold lg:border-b-[#FEA55F] lg:border-b-[3px]">
+            <RouterLink to="/projects"
+              class="w-full h-full flex items-center justify-center hover:bg-[#111820] transition-colors duration-200 ease-in-out"
+              activeClass="text-white font-semibold border-b-[#C44656] border-b-[5px] bg-[#111820]">
               <span>_projetos</span>
             </RouterLink>
           </li>
@@ -68,25 +72,25 @@ function toggleMenu(event) {
             <ul class="text-white">
               <li class="h-14 flex items-center border-b border-b-[#1E2D3D]">
                 <RouterLink to="/" class="w-full h-full flex items-center" @click="showMenu = false"
-                  activeClass="font-semibold border-l-[#C44656] border-l-4">
+                  activeClass="font-semibold border-l-[#C44656] border-l-4 bg-[#111820]">
                   <span class="ml-4">_olá</span>
                 </RouterLink>
               </li>
               <li class="h-14 flex items-center border-b border-b-[#1E2D3D]">
                 <RouterLink to="/about" class="w-full h-full flex items-center" @click="showMenu = false"
-                  activeClass="font-semibold border-l-[#C44656] border-l-4">
+                  activeClass="font-semibold border-l-[#C44656] border-l-4 bg-[#111820]">
                   <span class="ml-4">_sobre-mim</span>
                 </RouterLink>
               </li>
               <li class="h-14 flex items-center border-b border-b-[#1E2D3D]">
                 <RouterLink to="/projects" class="w-full h-full flex items-center" @click="showMenu = false"
-                  activeClass="font-semibold border-l-[#C44656] border-l-4">
+                  activeClass="font-semibold border-l-[#C44656] border-l-4 bg-[#111820]">
                   <span class="ml-4">_projetos</span>
                 </RouterLink>
               </li>
               <li class="h-14 flex items-center border-b border-b-[#1E2D3D]">
                 <RouterLink to="/contact" class="w-full h-full flex items-center" @click="showMenu = false"
-                  activeClass="font-semibold border-l-[#C44656] border-l-4">
+                  activeClass="font-semibold border-l-[#C44656] border-l-4 bg-[#111820]">
                   <span class="ml-4">_contato</span>
                 </RouterLink>
               </li>
