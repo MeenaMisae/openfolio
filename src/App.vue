@@ -23,9 +23,10 @@ function toggleMenu(event) {
 <template>
   <main class="min-h-screen flex flex-col border-[#1E2D3D] border">
     <div class="rounded-lg h-full flex flex-col flex-1">
-      <nav class="sticky top-0 w-full rounded z-10">
-        <ul class="grid lg:grid-cols-12 grid-cols-3 text-[#607B96] border-[#1E2D3D] border-b">
-          <li class="flex items-center h-14 lg:col-span-4 w-full px-5 col-span-2 lg:justify-center text-2xl">Meena
+      <nav class="sticky top-0 w-full rounded z-10 bg-[#04060A] lg:bg-transparent">
+        <ul class="grid lg:grid-cols-12 grid-cols-4 text-[#607B96] relative transition-all duration-300"
+          :class="{ 'border-transparent': showMenu, 'border-b-[#1E2D3D]': !showMenu }">
+          <li class="flex items-center h-14 lg:col-span-4 w-full px-5 col-span-3 lg:justify-center text-2xl">Meena
             Hiwatashi
           </li>
           <li class="border-x border-x-[#1E2D3D] items-center justify-center hidden lg:flex">
@@ -62,36 +63,39 @@ function toggleMenu(event) {
             </button>
           </li>
         </ul>
-        <div v-show="showMenu" class="absolute top-full left-0 w-full bg-[#011627]" ref="menu">
-          <ul class="text-white">
-            <li class="h-14 flex items-center border-b border-b-[#1E2D3D]">
-              <RouterLink to="/" class="w-full h-full flex items-center" @click="showMenu = false"
-                activeClass="font-semibold border-l-[#FEA55F] border-l-2">
-                <span class="ml-4">_olá</span>
-              </RouterLink>
-            </li>
-            <li class="h-14 flex items-center border-b border-b-[#1E2D3D]">
-              <RouterLink to="/about" class="w-full h-full flex items-center" @click="showMenu = false"
-                activeClass="font-semibold border-l-[#FEA55F] border-l-2">
-                <span class="ml-4">_sobre-mim</span>
-              </RouterLink>
-            </li>
-            <li class="h-14 flex items-center border-b border-b-[#1E2D3D]">
-              <RouterLink to="/projects" class="w-full h-full flex items-center" @click="showMenu = false"
-                activeClass="font-semibold border-l-[#FEA55F] border-l-2">
-                <span class="ml-4">_projetos</span>
-              </RouterLink>
-            </li>
-            <li class="h-14 flex items-center border-b border-b-[#1E2D3D]">
-              <RouterLink to="/contact" class="w-full h-full flex items-center" @click="showMenu = false"
-                activeClass="font-semibold border-l-[#FEA55F] border-l-2">
-                <span class="ml-4">_contato</span>
-              </RouterLink>
-            </li>
-          </ul>
-        </div>
+        <transition name="slide-down">
+          <div v-show="showMenu" class="absolute top-full left-0 w-full bg-[#04060A]" ref="menu">
+            <ul class="text-white">
+              <li class="h-14 flex items-center border-b border-b-[#1E2D3D]">
+                <RouterLink to="/" class="w-full h-full flex items-center" @click="showMenu = false"
+                  activeClass="font-semibold border-l-[#C44656] border-l-4">
+                  <span class="ml-4">_olá</span>
+                </RouterLink>
+              </li>
+              <li class="h-14 flex items-center border-b border-b-[#1E2D3D]">
+                <RouterLink to="/about" class="w-full h-full flex items-center" @click="showMenu = false"
+                  activeClass="font-semibold border-l-[#C44656] border-l-4">
+                  <span class="ml-4">_sobre-mim</span>
+                </RouterLink>
+              </li>
+              <li class="h-14 flex items-center border-b border-b-[#1E2D3D]">
+                <RouterLink to="/projects" class="w-full h-full flex items-center" @click="showMenu = false"
+                  activeClass="font-semibold border-l-[#C44656] border-l-4">
+                  <span class="ml-4">_projetos</span>
+                </RouterLink>
+              </li>
+              <li class="h-14 flex items-center border-b border-b-[#1E2D3D]">
+                <RouterLink to="/contact" class="w-full h-full flex items-center" @click="showMenu = false"
+                  activeClass="font-semibold border-l-[#C44656] border-l-4">
+                  <span class="ml-4">_contato</span>
+                </RouterLink>
+              </li>
+            </ul>
+          </div>
+        </transition>
       </nav>
       <div class="flex flex-1 overflow-auto">
+        <canvas class="w-full h-full fixed -z-10 top-0 left-0 pointer-events-none"></canvas>
         <RouterView />
       </div>
       <footer class="border-[#1E2D3D] text-[#607B96] flex border-y">
