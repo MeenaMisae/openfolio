@@ -10,6 +10,48 @@ function closeMenu(e) {
 }
 onMounted(() => {
   document.addEventListener('click', closeMenu)
+  const canvas = document.querySelector('canvas');
+  if (canvas) {
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    function createParticle() {
+      return {
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        size: Math.random() * 1 + 0.001,
+        dx: (Math.random() - 0.5) * 1,
+        dy: (Math.random() - 0.5) * 1,
+        opacity: Math.random() * 0.5 + 0.5,
+      };
+    }
+    let particles = Array.from({ length: 40 }, createParticle);
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles = particles.filter(p => {
+        p.x += p.dx;
+        p.y += p.dy;
+
+        if (p.x < 0 || p.x > canvas.width || p.y < 0 || p.y > canvas.height) {
+          return false;
+        }
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 255, 255, ${p.opacity})`;
+        ctx.fill();
+        return true;
+      });
+      while (particles.length < 40) {
+        particles.push(createParticle());
+      }
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+  } else {
+    console.error("Canvas element not found.");
+  }
 })
 onBeforeUnmount(() => {
   document.removeEventListener('click', closeMenu)
@@ -18,13 +60,14 @@ function toggleMenu(event) {
   event.stopPropagation()
   showMenu.value = !showMenu.value
 }
+
 </script>
 
 <template>
   <main class="min-h-screen flex flex-col border-[#1E2D3D] border">
     <div class="rounded-lg h-full flex flex-col flex-1">
       <nav class="sticky top-0 w-full rounded z-10 bg-[#04060A] lg:bg-transparent">
-        <ul class="grid lg:grid-cols-12 grid-cols-4 text-[#607B96] relative transition-all duration-300"
+        <ul class="grid lg:grid-cols-12 grid-cols-4 text-[#607B96] relative transition-all duration-300 menu"
           :class="{ 'border-transparent': showMenu, 'border-b-[#1E2D3D]': !showMenu }">
           <RouterLink to="/"
             class="flex items-center h-14 lg:col-span-4 w-full px-5 col-span-3 lg:justify-center text-2xl">Meena
