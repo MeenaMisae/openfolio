@@ -104,7 +104,7 @@ details[open] > summary.accordeon::before {
     max-height: 300px;
   }
   
-  ul::after {
+  ul.menu::after {
     content: '';
     position: absolute;
     bottom: 0;
