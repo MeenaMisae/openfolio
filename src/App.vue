@@ -74,28 +74,25 @@ function toggleMenu(event) {
             Hiwatashi
           </RouterLink>
           <li class="border-x border-x-[#1E2D3D] items-center justify-center hidden lg:flex">
-            <RouterLink to="/"
-              class="w-full h-full flex items-center justify-center hover:bg-[#111820] transition-colors duration-200 ease-in-out"
-              activeClass="text-white font-semibold border-b-[#C44656] border-b-[5px] bg-[#111820]">
+            <RouterLink to="/" class="menu-item" activeClass="active-menu-item">
               <span>_olá</span>
             </RouterLink>
           </li>
           <li class="border-x border-x-[#1E2D3D] items-center justify-center hidden lg:flex truncate">
-            <RouterLink to="/about"
-              class="w-full h-full flex items-center justify-center hover:bg-[#111820] transition-colors duration-200 ease-in-out"
-              activeClass="text-white font-semibold border-b-[#C44656] border-b-[5px] bg-[#111820]">
+            <RouterLink to="/about" class="menu-item" activeClass="active-menu-item">
               <span>_sobre-mim</span>
             </RouterLink>
           </li>
           <li class="border-x border-x-[#1E2D3D] items-center justify-center hidden lg:flex">
-            <RouterLink to="/projects"
-              class="w-full h-full flex items-center justify-center hover:bg-[#111820] transition-colors duration-200 ease-in-out"
-              activeClass="text-white font-semibold border-b-[#C44656] border-b-[5px] bg-[#111820]">
+            <RouterLink to="/projects" class="menu-item" activeClass="active-menu-item">
               <span>_projetos</span>
             </RouterLink>
           </li>
           <li class="border-l border-l-[#1E2D3D] items-center justify-center hidden lg:flex col-start-12">
-            _me-contate</li>
+            <RouterLink to="/contact" class="menu-item" activeClass="active-menu-item">
+              <span>_me-contate</span>
+            </RouterLink>
+          </li>
           <li class="lg:hidden flex items-center justify-end">
             <button @click="toggleMenu" class="w-full flex justify-end pr-5 h-full items-center">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" v-show="!showMenu">
@@ -150,7 +147,7 @@ function toggleMenu(event) {
           <span class="h-full items-center flex px-5">
             me encontre:
           </span>
-          <a href=""
+          <a href="https://www.linkedin.com/in/meena-misae/" target="_blank"
             class="hover:bg-[#111820] px-4 items-center flex hover:stroke-[#E8B44F]  stroke-[#70879E] border-[#1E2D3D] border-x transition-colors duration-200 ease-in-out">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
               stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -159,7 +156,7 @@ function toggleMenu(event) {
               <circle cx="4" cy="4" r="2"></circle>
             </svg>
           </a>
-          <a href=""
+          <a href="https://github.com/MeenaMisae" target="_blank"
             class="hover:bg-[#111820] px-4 items-center flex hover:stroke-[#E8B44F]  stroke-[#70879E] border-[#1E2D3D] border-x transition-colors duration-200 ease-in-out">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
               stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
