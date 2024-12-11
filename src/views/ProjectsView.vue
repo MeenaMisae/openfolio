@@ -68,9 +68,8 @@ const projects = {
                                 <polyline points="7 7 17 7 17 17"></polyline>
                             </svg>
                         </span>
-                        <span v-else-if="!project.link"></span>
                         <span v-else>
-                            🚧
+                            {{ project.link ? '🚧' : '' }}
                         </span>
                     </div>
                     <div
