@@ -145,10 +145,11 @@ function closeTab(index, event) {
     <div class="lg:w-full lg:col-span-10">
       <div class="lg:grid lg:grid-cols-8 lg:w-full h-10 hidden border-b-2 border-[#1E2D3D]">
         <div
-          class="text-[#607B96] cursor-pointer flex items-center justify-between px-4 border-[#1E2D3D] border border-y-0"
+          class="text-[#607B96] cursor-pointer flex items-center justify-between px-4 border-[#1E2D3D] border border-y-0 hover:bg-[#111820] transition-colors duration-200 ease-in-out"
+          :class="{ 'text-white font-semibold border-b-2 border-b-[#5565E8] bg-[#111820]': tab === selectedTab }"
           v-for="(tab, index) in tabs" :key="index" @click.prevent="loadContent(tab)">
-          <span :class="{ 'text-white font-semibold': tab === selectedTab }">{{ tab }}</span>
-          <span @click="closeTab(index, $event)">
+          <span>{{ tab }}</span>
+          <span @click="closeTab(index, $event)" class="opacity-100 hover:opacity-70 h-full flex items-center">
             <svg width="13" height="13" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
                 d="M5.10015 4.20762L8.81265 0.495117L9.87315 1.55562L6.16065 5.26812L9.87315 8.98062L8.81265 10.0411L5.10015 6.32862L1.38765 10.0411L0.327148 8.98062L4.03965 5.26812L0.327148 1.55562L1.38765 0.495117L5.10015 4.20762Z"
