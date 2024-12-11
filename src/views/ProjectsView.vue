@@ -1,10 +1,10 @@
 <script setup>
 const technologies = ['HTML', 'CSS', 'Vue', 'Laravel', 'Livewire'];
 const projects = {
-    '1': { 'title': '_wire-cotton', 'description': 'Painel para gerenciar produtos no e-commerce Wire-Cotton.', 'src': '/images/projects/wire-cotton.svg', 'finished': true },
-    '2': { 'title': '_wire-cotton-api', 'description': 'API para integrar dados ao painel do Wire-Cotton.', 'src': '/images/projects/wire-cotton.svg', 'finished': true },
-    '3': { 'title': '_meenu', 'description': 'Gestão de produtos alimentícios com estoque e receitas.', 'src': '/images/projects/wire-cotton.svg', 'finished': false },
-    '4': { 'title': '_nps', 'description': 'Sistema de avaliação baseado no Net Promoter Score.', 'src': '/images/projects/nps.png', 'finished': false }
+    '1': { 'title': '_wire-cotton', 'description': 'Painel para gerenciar produtos no e-commerce Wire-Cotton.', 'src': '/images/projects/wire-cotton.svg', 'finished': true, 'link': 'https://github.com/MeenaMisae/wire-cotton' },
+    '2': { 'title': '_wire-cotton-api', 'description': 'API para integrar dados ao painel do Wire-Cotton.', 'src': '/images/projects/wire-cotton.svg', 'finished': true, 'link': 'https://github.com/MeenaMisae/wire-cotton-api' },
+    '3': { 'title': '_meenu', 'description': 'Gestão de produtos alimentícios com estoque e receitas.', 'src': '/images/projects/wire-cotton.svg', 'finished': false, 'link': 'https://github.com/MeenaMisae/meenu' },
+    '4': { 'title': '_nps', 'description': 'Sistema de avaliação baseado no Net Promoter Score.', 'src': '/images/projects/nps.png', 'finished': true }
 }
 
 </script>
@@ -46,14 +46,32 @@ const projects = {
                 </div>
             </div>
             <div class="flex gap-12 flex-wrap items-center justify-center pt-6">
-                <div v-for="(project, index) in projects" :key="index" class="lg:h-72 w-80">
-                    <div class="flex items-center gap-3 pb-2">
-                        <svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M15.0802 3.61111V12.2778C15.0802 12.4693 15.0041 12.653 14.8687 12.7885C14.7332 12.9239 14.5495 13 14.358 13H1.35796C1.16642 13 0.982719 12.9239 0.847276 12.7885C0.711833 12.653 0.635742 12.4693 0.635742 12.2778V2.88889H14.358C14.5495 2.88889 14.7332 2.96498 14.8687 3.10042C15.0041 3.23587 15.0802 3.41957 15.0802 3.61111ZM8.15696 1.44444H0.635742V0.722222C0.635742 0.530677 0.711833 0.346977 0.847276 0.211534C0.982719 0.076091 1.16642 0 1.35796 0H6.71252L8.15696 1.44444Z"
-                                stroke="#FFFFFF" />
-                        </svg>
-                        <span class="">{{ project.title }}</span>
+                <a v-for="(project, index) in projects" :key="index" class="lg:h-72 w-80 group" title="Ver projeto"
+                    :href="project.link" target="_blank">
+                    <div
+                        class="flex items-center justify-between px-2 opacity-70 group-hover:opacity-100 transition-opacity">
+                        <div class="flex items-center gap-3 pb-2">
+                            <svg width="16" height="13" viewBox="0 0 16 13" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M15.0802 3.61111V12.2778C15.0802 12.4693 15.0041 12.653 14.8687 12.7885C14.7332 12.9239 14.5495 13 14.358 13H1.35796C1.16642 13 0.982719 12.9239 0.847276 12.7885C0.711833 12.653 0.635742 12.4693 0.635742 12.2778V2.88889H14.358C14.5495 2.88889 14.7332 2.96498 14.8687 3.10042C15.0041 3.23587 15.0802 3.41957 15.0802 3.61111ZM8.15696 1.44444H0.635742V0.722222C0.635742 0.530677 0.711833 0.346977 0.847276 0.211534C0.982719 0.076091 1.16642 0 1.35796 0H6.71252L8.15696 1.44444Z"
+                                    stroke="#FFFFFF" />
+                            </svg>
+                            <span class="">{{ project.title
+                                }}</span>
+                        </div>
+                        <span v-if="project.finished && project.link">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <line x1="7" y1="17" x2="17" y2="7"></line>
+                                <polyline points="7 7 17 7 17 17"></polyline>
+                            </svg>
+                        </span>
+                        <span v-else-if="!project.link"></span>
+                        <span v-else>
+                            🚧
+                        </span>
                     </div>
                     <div
                         class="bg-[#12171F] rounded-lg border-[1px] border-[#1f2836] text-[#D8DEE9] font-mono flex flex-col gap-4 h-full">
@@ -66,7 +84,7 @@ const projects = {
                             </div>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
         </div>
     </div>
