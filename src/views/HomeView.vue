@@ -4,7 +4,7 @@ import Swiper from 'swiper/bundle';
 import 'swiper/css/bundle';
 
 onMounted(() => {
-  const swiper = new Swiper('.swiper', {
+  new Swiper('.swiper', {
     effect: 'coverflow',
     loop: true,
     autoplay: true,
@@ -21,27 +21,36 @@ onMounted(() => {
       slideShadows: false,
     },
   });
+  const target = document.getElementById('contactMe');
+  setTimeout(() => {
+    calendar.schedulingButton.load({
+      url: 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ2WedMKcLdQsUa4jBahaIa0qUNfNiwS2pU7vtEf7ioRR5Y-VsSxOhxmPBkdWpLmo6I-SpAKbXKm?gv=true',
+      color: '#039BE5',
+      label: 'Agendar reunião',
+      target: target,
+    });
+    const defaultBtn = document.querySelector('button.qxCTlb')
+    defaultBtn.style.display = 'none'
+    target.addEventListener('click', function () {
+      defaultBtn.click()
+    })
+  }, 500)
+
 })
 </script>
 
 <template>
   <div class="flex w-full flex-col py-5">
-    <div class="flex-1 flex justify-center flex-col items-center w-full">
-      <div class="absolute top-20 h-fit w-full justify-end lg:flex hidden">
-        <div class="flex flex-col items-center">
-          <img src="/images/me.png" alt="" class="object-cover rounded-full w-16 h-16 border-[3.5px] border-[#303a4b]">
-          <span
-            class="bg-[#111821] text-white h-[29px] rounded-lg p-3 flex items-center text-sm">solicitar_contato</span>
-        </div>
-      </div>
-      <div class="flex lg:flex-1 flex-col w-full items-center justify-center px-8 lg:flex-row gap-6">
+    <div class="flex-1 flex justify-center flex-col items-center w-full lg:gap-8 gap-4">
+      <div class="flex flex-col w-full items-center justify-center px-8 lg:flex-row gap-6">
         <div class="flex flex-col items-center lg:items-start lg:gap-3">
           <span class="text-[#8095AB]">Olá, eu sou</span>
           <h1
             class="text-[25pt] lg:text-[40pt] font-semibold tracking-tighter text-white typewriter-animation typewriter-text max-w-fit">
             Meena Hiwatashi</h1>
           <p class="text-[#7fcaff] text-center w-[350px] lg:w-[520px] lg:text-start text-[13pt]">
-            Sou uma desenvolvedora de software fullstack com foco principal no desenvolvimento front-end.
+            Sou uma desenvolvedora de software focada na resolução de problemas e na entrega de sistemas completos, de
+            ponta a ponta.
           </p>
         </div>
         <div class="lg:max-w-xl">
@@ -68,7 +77,11 @@ onMounted(() => {
           </div>
         </div>
       </div>
-      <div class="flex flex-col gap-4 pt-4">
+      <div class="flex flex-col gap-6 pt-4">
+        <div class="flex items-center flex-col gap-y-2">
+          <img src="/images/me.png" alt="" class="object-cover rounded-full w-16 h-16 border-[3.5px] border-[#303a4b]">
+          <button class="h-[29px] text-sm btn" id="contactMe">solicitar_contato</button>
+        </div>
         <a class="btn" href="https://github.com/MeenaMisae/portfolio" target="_blank">
           Gostou? Clona pra você!
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
@@ -77,11 +90,6 @@ onMounted(() => {
             <polyline points="7 7 17 7 17 17"></polyline>
           </svg>
         </a>
-        <div class="flex items-center flex-col lg:hidden">
-          <img src="/images/me.png" alt="" class="object-cover rounded-full w-16 h-16 border-[3.5px] border-[#303a4b]">
-          <span
-            class="bg-[#111821] text-white h-[29px] rounded-lg p-3 flex items-center text-sm">solicitar_contato</span>
-        </div>
       </div>
     </div>
   </div>
