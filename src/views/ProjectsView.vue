@@ -1,12 +1,22 @@
 <script setup>
-const technologies = ['HTML', 'CSS', 'Vue', 'Laravel', 'Livewire'];
-const projects = {
-    '1': { 'title': '_wire-cotton', 'description': 'Painel para gerenciar produtos no e-commerce Wire-Cotton.', 'src': '/images/projects/wire-cotton.svg', 'finished': true, 'link': 'https://github.com/MeenaMisae/wire-cotton' },
-    '2': { 'title': '_wire-cotton-api', 'description': 'API para integrar dados ao painel do Wire-Cotton.', 'src': '/images/projects/wire-cotton.svg', 'finished': true, 'link': 'https://github.com/MeenaMisae/wire-cotton-api' },
-    '3': { 'title': '_meenu', 'description': 'Gestão de produtos alimentícios com estoque e receitas.', 'src': '/images/projects/wire-cotton.svg', 'finished': false, 'link': 'https://github.com/MeenaMisae/meenu' },
-    '4': { 'title': '_nps', 'description': 'Sistema de avaliação baseado no Net Promoter Score.', 'src': '/images/projects/nps.png', 'finished': true }
-}
+import { computed, ref } from 'vue';
 
+const technologies = ['HTML', 'CSS', 'Vue', 'Laravel', 'Livewire'];
+const checkedTechs = ref([]);
+const projects = ref({
+    '1': { 'title': '_wire-cotton', 'description': 'Painel para gerenciar produtos no e-commerce Wire-Cotton.', 'src': '/images/projects/wire-cotton.svg', 'link': 'https://github.com/MeenaMisae/wire-cotton', 'techs': ['Vue', 'HTML', 'CSS'] },
+    '2': { 'title': '_wire-cotton-api', 'description': 'API para integrar dados ao painel do Wire-Cotton.', 'src': '/images/projects/wire-cotton.svg', 'link': 'https://github.com/MeenaMisae/wire-cotton-api', 'techs': ['Laravel'] },
+    '3': { 'title': '_meenu', 'description': 'Gestão de produtos alimentícios com estoque e receitas.', 'src': '/images/projects/wire-cotton.svg', 'link': 'https://github.com/MeenaMisae/meenu', 'techs': ['Laravel', 'Livewire', 'HTML', 'CSS'] },
+    '4': { 'title': '_nps', 'description': 'Sistema de avaliação utilizando a metodologia NPS, desenvolvido em um contexto corporativo.', 'src': '/images/projects/nps.png' }
+})
+const filteredProjects = computed(() => {
+    if (checkedTechs.value.length) {
+        return Object.values(projects.value).filter(project => {
+            return project.techs && project.techs.some(tech => checkedTechs.value.includes(tech))
+        })
+    }
+    return projects.value
+})
 </script>
 <template>
     <div class="grid grid-cols-1 lg:grid-cols-12 lg:flex-1 lg:h-auto lg:w-auto h-full w-full">
@@ -14,14 +24,14 @@ const projects = {
             <h1 class="text-white">_projetos</h1>
         </div>
         <div class="lg:col-span-2 lg:w-full lg:border-x lg:border-x-[#1E2D3D] space-y-1">
-            <details>
+            <details open>
                 <summary class="text-white pl-5 py-2 bg-[#1E2D3D]">
                     <span class="ml-2">tecnologias</span>
                 </summary>
                 <div class="pl-5">
                     <ul class="text-white space-y-4 pt-4 h-fit">
                         <li v-for="tech in technologies" :key="tech" class="items-center flex gap-3 w-full">
-                            <input type="checkbox" :id="tech">
+                            <input type="checkbox" :id="tech" :value="tech" v-model="checkedTechs">
                             <label :for="tech" class="w-full flex gap-2">
                                 <img :src="`/icons/techs/${tech.toLowerCase()}.svg`" :alt="`imagem de ${tech}`">
                                 <span>{{ tech }}</span>
@@ -32,22 +42,15 @@ const projects = {
             </details>
         </div>
         <div class="lg:w-full lg:col-span-10">
-            <div class="lg:grid lg:grid-cols-8 lg:w-full h-10 hidden border-b-2 border-[#1E2D3D]">
-                <div class="text-[#607B96] cursor-pointer flex items-center justify-between px-4 border-[#1E2D3D] border border-y-0"
-                    v-for="(tab, index) in tabs" :key="index" @click.prevent="loadContent(tab)">
-                    <span :class="{ 'text-white font-semibold': tab === selectedTab }">{{ tab }}</span>
-                    <span @click="closeTab(index, $event)">
-                        <svg width="13" height="13" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M5.10015 4.20762L8.81265 0.495117L9.87315 1.55562L6.16065 5.26812L9.87315 8.98062L8.81265 10.0411L5.10015 6.32862L1.38765 10.0411L0.327148 8.98062L4.03965 5.26812L0.327148 1.55562L1.38765 0.495117L5.10015 4.20762Z"
-                                fill="#607B96" />
-                        </svg>
-                    </span>
+            <div class="lg:flex lg:w-full h-10 hidden border-b-2 border-[#1E2D3D]">
+                <div
+                    class="text-[#607B96] font-semibold flex items-center justify-between px-4 border-[#1E2D3D] border border-y-0 w-full">
+                    <span>{{ checkedTechs.join('; ') }}</span>
                 </div>
             </div>
             <div class="flex gap-12 flex-wrap items-center justify-center pt-6">
-                <a v-for="(project, index) in projects" :key="index" class="lg:h-72 w-80 group" title="Ver projeto"
-                    :href="project.link" target="_blank">
+                <a v-for="(project, index) in filteredProjects" :key="index" class="lg:h-72 w-80 group"
+                    title="Ver projeto" :href="project.link" target="_blank">
                     <div
                         class="flex items-center justify-between px-2 opacity-70 group-hover:opacity-100 transition-opacity">
                         <div class="flex items-center gap-3 pb-2">
@@ -60,7 +63,7 @@ const projects = {
                             <span class="">{{ project.title
                                 }}</span>
                         </div>
-                        <span v-if="project.finished && project.link">
+                        <span v-if="project.link">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
                                 fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round">
