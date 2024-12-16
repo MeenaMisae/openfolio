@@ -68,10 +68,10 @@ const filteredProjects = computed(() => {
                         </span>
                     </div>
                     <div
-                        class="bg-[#12171F] rounded-lg border-[1px] border-[#1f2836] text-[#D8DEE9] font-mono flex flex-col gap-4 h-full">
-                        <div class="rounded-2xl flex flex-col relative">
-                            <div class="flex w-full justify-end">
-                                <div class="absolute flex flex-col w-full">
+                        class="bg-[#12171F] rounded-lg border-[1px] border-[#1f2836] text-[#D8DEE9] font-mono flex flex-col  h-full">
+                        <div class="rounded-2xl flex flex-col relative gap-4">
+                            <div class="flex w-full justify-end absolute">
+                                <div class="flex flex-col w-full">
                                     <img :src="`/icons/techs/filled/${tech.toLowerCase()}.svg`" alt=""
                                         v-for="(tech) in project.techs" :key="tech" class="max-w-fit self-end p-1">
                                 </div>
