@@ -1,14 +1,10 @@
 <script setup>
 import { computed, ref } from 'vue';
+import { getProjects } from '@/services/projectService';
 
 const technologies = ['HTML', 'CSS', 'Vue', 'Laravel', 'Livewire'];
 const checkedTechs = ref([]);
-const projects = ref({
-    '1': { 'title': '_wire-cotton', 'description': 'Painel para gerenciar produtos no e-commerce Wire-Cotton.', 'src': '/images/projects/wire-cotton.svg', 'link': 'https://github.com/MeenaMisae/wire-cotton', 'techs': ['Vue', 'HTML', 'CSS'] },
-    '2': { 'title': '_wire-cotton-api', 'description': 'API para integrar dados ao painel do Wire-Cotton.', 'src': '/images/projects/wire-cotton.svg', 'link': 'https://github.com/MeenaMisae/wire-cotton-api', 'techs': ['Laravel'] },
-    '3': { 'title': '_meenu', 'description': 'Gestão de produtos alimentícios com estoque e receitas.', 'src': '/images/projects/wire-cotton.svg', 'link': 'https://github.com/MeenaMisae/meenu', 'techs': ['Laravel', 'Livewire', 'HTML', 'CSS'] },
-    '4': { 'title': '_nps', 'description': 'Sistema de avaliação utilizando a metodologia NPS, desenvolvido em um contexto corporativo.', 'src': '/images/projects/nps.png' }
-})
+const projects = computed(() => getProjects())
 const filteredProjects = computed(() => {
     if (checkedTechs.value.length) {
         return Object.values(projects.value).filter(project => {
@@ -60,8 +56,7 @@ const filteredProjects = computed(() => {
                                     d="M15.0802 3.61111V12.2778C15.0802 12.4693 15.0041 12.653 14.8687 12.7885C14.7332 12.9239 14.5495 13 14.358 13H1.35796C1.16642 13 0.982719 12.9239 0.847276 12.7885C0.711833 12.653 0.635742 12.4693 0.635742 12.2778V2.88889H14.358C14.5495 2.88889 14.7332 2.96498 14.8687 3.10042C15.0041 3.23587 15.0802 3.41957 15.0802 3.61111ZM8.15696 1.44444H0.635742V0.722222C0.635742 0.530677 0.711833 0.346977 0.847276 0.211534C0.982719 0.076091 1.16642 0 1.35796 0H6.71252L8.15696 1.44444Z"
                                     stroke="#FFFFFF" />
                             </svg>
-                            <span class="">{{ project.title
-                                }}</span>
+                            <span class="">{{ project.title }}</span>
                         </div>
                         <span v-if="project.link">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
@@ -71,13 +66,16 @@ const filteredProjects = computed(() => {
                                 <polyline points="7 7 17 7 17 17"></polyline>
                             </svg>
                         </span>
-                        <span v-else>
-                            {{ project.link ? '🚧' : '' }}
-                        </span>
                     </div>
                     <div
                         class="bg-[#12171F] rounded-lg border-[1px] border-[#1f2836] text-[#D8DEE9] font-mono flex flex-col gap-4 h-full">
-                        <div class="rounded-2xl flex flex-col gap-4">
+                        <div class="rounded-2xl flex flex-col relative">
+                            <div class="flex w-full justify-end">
+                                <div class="absolute flex flex-col w-full">
+                                    <img :src="`/icons/techs/filled/${tech.toLowerCase()}.svg`" alt=""
+                                        v-for="(tech) in project.techs" :key="tech" class="max-w-fit self-end p-1">
+                                </div>
+                            </div>
                             <div class="h-36 w-full overflow-hidden">
                                 <img :src="project.src" alt="" class="object-cover rounded h-full w-full">
                             </div>
