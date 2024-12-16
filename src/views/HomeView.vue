@@ -1,11 +1,15 @@
 <script setup>
-import { onMounted } from 'vue';
+import { computed, onMounted } from 'vue';
 import Swiper from 'swiper/bundle';
 import 'swiper/css/bundle';
+import { getProjects } from '@/services/projectService';
 
+const projects = computed(() => getProjects())
 onMounted(() => {
+  const target = document.getElementById('contactMe');
   new Swiper('.swiper', {
     effect: 'coverflow',
+    speed: 1000,
     loop: true,
     autoplay: true,
     direction: "vertical",
@@ -21,7 +25,6 @@ onMounted(() => {
       slideShadows: false,
     },
   });
-  const target = document.getElementById('contactMe');
   setTimeout(() => {
     calendar.schedulingButton.load({
       url: 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ2WedMKcLdQsUa4jBahaIa0qUNfNiwS2pU7vtEf7ioRR5Y-VsSxOhxmPBkdWpLmo6I-SpAKbXKm?gv=true',
@@ -35,7 +38,6 @@ onMounted(() => {
       defaultBtn.click()
     })
   }, 500)
-
 })
 </script>
 
@@ -49,28 +51,19 @@ onMounted(() => {
             class="text-[25pt] lg:text-[40pt] font-semibold tracking-tighter text-white typewriter-animation typewriter-text max-w-fit">
             Meena Hiwatashi</h1>
           <p class="text-[#7fcaff] text-center w-[350px] lg:w-[520px] lg:text-start text-[13pt]">
-            Sou uma desenvolvedora de software focada na resolução de problemas e na entrega de sistemas completos, de
-            ponta a ponta.
+            Sou uma desenvolvedora de software focada na resolução de problemas e na entrega de sistemas completos.
           </p>
         </div>
         <div class="lg:max-w-xl">
-          <div class="swiper w-full lg:h-72 h-56">
+          <div class="swiper w-full lg:h-80 h-56">
             <div class="swiper-wrapper">
-              <div
-                class="swiper-slide rounded-lg bg-black w-full h-48 overflow-hidden lg:px-3 px-6 border-[#1E2D3D] border">
+              <div class="swiper-slide rounded-lg bg-black w-full overflow-hidden px-6 border-[#1E2D3D] border"
+                v-for="(project, index) in projects" :key="index">
                 <div class="h-12 flex items-center">
-                  <span class="text-[#E8B44F] font-semibold">_wire_cotton</span>
-                </div>
-                <div class="w-full">
-                  <img src="/images/projects/wire-cotton.svg" alt="" class="w-full h-full object-cover rounded">
-                </div>
-              </div>
-              <div class="swiper-slide rounded-lg bg-black w-full h-48 overflow-hidden px-6 border-[#1E2D3D] border">
-                <div class="h-12 flex items-center">
-                  <span class="text-[#E8B44F] font-semibold">_nps</span>
+                  <span class="text-[#E8B44F] font-semibold">{{ project.title }}</span>
                 </div>
                 <div>
-                  <img src="/images/projects/nps.png" alt="" class="w-full h-full object-cover rounded">
+                  <img :src="project.src" alt="" class="w-full h-full object-cover rounded">
                 </div>
               </div>
             </div>
