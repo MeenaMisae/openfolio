@@ -69,10 +69,11 @@ function toggleMenu(event) {
       <nav class="sticky top-0 w-full rounded z-10 bg-[#04060A] lg:bg-transparent">
         <ul class="grid lg:grid-cols-12 grid-cols-4 text-[#607B96] relative transition-all duration-300 menu"
           :class="{ 'border-transparent': showMenu, 'border-b-[#1E2D3D]': !showMenu }">
-          <RouterLink to="/"
-            class="flex items-center h-14 lg:col-span-4 w-full px-5 col-span-3 lg:justify-center text-2xl">Meena
-            Hiwatashi
-          </RouterLink>
+          <li class="lg:col-span-4 col-span-3">
+            <RouterLink to="/" class="flex items-center h-14 w-full px-5 lg:justify-center text-2xl">
+              Meena Hiwatashi
+            </RouterLink>
+          </li>
           <li class="border-x border-x-[#1E2D3D] items-center justify-center hidden lg:flex">
             <RouterLink to="/" class="menu-item" activeClass="active-menu-item">
               <span>_olá</span>
@@ -94,7 +95,8 @@ function toggleMenu(event) {
             </RouterLink>
           </li>
           <li class="lg:hidden flex items-center justify-end">
-            <button @click="toggleMenu" class="w-full flex justify-end pr-5 h-full items-center">
+            <button @click="toggleMenu" class="w-full flex justify-end pr-5 h-full items-center"
+              aria-label="Abrir menu">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" v-show="!showMenu">
                 <path d="M3 4H21V6H3V4ZM3 11H21V13H3V11ZM3 18H21V20H3V18Z" fill="#607B96" stroke="#607B96"></path>
               </svg>
@@ -148,7 +150,8 @@ function toggleMenu(event) {
             me encontre:
           </span>
           <a href="https://www.linkedin.com/in/meena-misae/" target="_blank"
-            class="hover:bg-[#111820] px-4 items-center flex hover:stroke-[#E8B44F]  stroke-[#70879E] border-[#1E2D3D] border-x transition-colors duration-200 ease-in-out">
+            class="hover:bg-[#111820] px-4 items-center flex hover:stroke-[#E8B44F]  stroke-[#70879E] border-[#1E2D3D] border-x transition-colors duration-200 ease-in-out"
+            aria-label="Acessar perfil do Linkedin de Meena Misae">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
               stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
@@ -157,7 +160,8 @@ function toggleMenu(event) {
             </svg>
           </a>
           <a href="https://github.com/MeenaMisae" target="_blank"
-            class="hover:bg-[#111820] px-4 items-center flex hover:stroke-[#E8B44F]  stroke-[#70879E] border-[#1E2D3D] border-x transition-colors duration-200 ease-in-out">
+            class="hover:bg-[#111820] px-4 items-center flex hover:stroke-[#E8B44F]  stroke-[#70879E] border-[#1E2D3D] border-x transition-colors duration-200 ease-in-out"
+            aria-label="Acessar perfil do Github de Meena Misae">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
               stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path
