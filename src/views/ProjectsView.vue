@@ -2,7 +2,7 @@
 import { computed, ref } from 'vue';
 import { getProjects } from '@/services/projectService';
 
-const technologies = ['HTML', 'CSS', 'Vue', 'Laravel', 'Livewire'];
+const technologies = ['HTML', 'CSS', 'Vue', 'Laravel', 'Livewire', 'MySQL'];
 const checkedTechs = ref([]);
 const projects = computed(() => getProjects())
 const filteredProjects = computed(() => {
@@ -71,7 +71,7 @@ const filteredProjects = computed(() => {
                         class="bg-[#12171F] rounded-lg border-[1px] border-[#1f2836] text-[#D8DEE9] font-mono flex flex-col  h-full">
                         <div class="rounded-2xl flex flex-col relative gap-4">
                             <div class="flex w-full justify-end absolute">
-                                <div class="flex flex-col w-full">
+                                <div class="flex w-full justify-end">
                                     <img :src="`/icons/techs/filled/${tech.toLowerCase()}.svg`" alt=""
                                         v-for="(tech) in project.techs" :key="tech" class="max-w-fit self-end p-1">
                                 </div>
