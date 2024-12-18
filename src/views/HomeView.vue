@@ -73,9 +73,9 @@ onMounted(() => {
       <div class="flex flex-col gap-6 pt-4">
         <div class="flex items-center flex-col gap-y-2">
           <img src="/images/me.png" alt="" class="object-cover rounded-full w-16 h-16 border-[3.5px] border-[#303a4b]">
-          <button class="h-[29px] text-sm btn" id="contactMe">solicitar_contato</button>
+          <button class="h-[29px] text-sm btn btn-primary" id="contactMe">solicitar_contato</button>
         </div>
-        <a class="btn" href="https://github.com/MeenaMisae/portfolio" target="_blank">
+        <a class="btn btn-primary" href="https://github.com/MeenaMisae/portfolio" target="_blank">
           Gostou? Clona pra você!
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
             stroke="#70879E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -87,8 +87,6 @@ onMounted(() => {
     </div>
   </div>
 </template>
-<!-- <div class="css-blurry-gradient-blue"></div>
-    <div class="css-blurry-gradient-green"></div> -->
 <style scoped>
 .typewriter-text {
   width: fit-content;
