@@ -20,7 +20,8 @@
                     </span>
                 </a>
             </div>
-            <form class="w-[330px] lg:w-[600px] flex flex-col gap-3 h-full" name="contact" method="POST" netlify>
+            <form class="w-[330px] lg:w-[600px] flex flex-col gap-3 h-full" name="contact" method="POST"
+                data-netlify="true">
                 <input type="text" name="name" id="name" class="input input-primary" placeholder="nome" required>
                 <input type="email" name="email" id="email" class="input input-primary" placeholder="email" required>
                 <textarea name="message" id="message" placeholder="mensagem" class="textarea textarea-primary"
