@@ -172,3 +172,38 @@ details[open] > summary.accordeon::before {
     border-bottom: 5px solid #C44656; 
     background-color: #111820;
   }
+
+  .input {
+    width: 100%;
+    padding: 1rem;
+    border-radius: 0.375rem;
+  }
+
+  .input-primary {
+    background-color: #090d14;
+    outline: none;
+    transition: all 0.3s ease; 
+  }
+  
+  .input-primary:focus {
+    outline: none; 
+    box-shadow: 0 0 0 2px #1f2836; 
+  }
+
+  .textarea {
+    height: 11rem;
+    width: 100%;
+    padding: 1rem;
+    border-radius: 0.375rem;
+  }
+
+  .textarea-primary {
+    background-color: #090d14;
+    outline: none;
+    transition: all 0.3s ease; 
+  }
+
+  .textarea-primary:focus {
+    outline: none; 
+    box-shadow: 0 0 0 2px #1f2836; 
+  }
