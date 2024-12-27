@@ -42,8 +42,7 @@ jobs:
           ls -la ~/.ssh
 
           echo "Adicionando o servidor ao arquivo known_hosts"
-          ssh-keyscan -v -H ${{ secrets.SERVER_HOST }} >> ~/.ssh/known_hosts
-
+          echo "${{ secrets.SERVER_HOST }}" > ~/.ssh/known_hosts
           echo "Verificando se o servidor foi adicionado ao known_hosts"
           cat ~/.ssh/known_hosts
 
