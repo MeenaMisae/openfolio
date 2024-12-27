@@ -26,20 +26,28 @@ jobs:
 
       - name: Set up SSH for deploy
         run: |
-          # Criar o diretório ~/.ssh
+          echo "Criando o diretório ~/.ssh"
           mkdir -p ~/.ssh
-          # Garantir permissões corretas para o diretório ~/.ssh
-          chmod 700 ~/.ssh 
-          # Adicionar a chave privada ao arquivo id_ed25519
+
+          echo "Garantindo permissões corretas para o diretório ~/.ssh"
+          chmod 700 ~/.ssh
+
+          echo "Adicionando a chave privada ao arquivo id_ed25519"
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
-          # Verificar as permissões e conteúdo do arquivo da chave privada (não exibir a chave)
+
+          echo "Verificando as permissões da chave privada"
           chmod 600 ~/.ssh/id_ed25519
-          ls -la ~/.ssh  # Listar os arquivos no diretório ~/.ssh para depuração
-          # Adicionar o servidor ao arquivo known_hosts
+
+          echo "Listando arquivos no diretório ~/.ssh"
+          ls -la ~/.ssh
+
+          echo "Adicionando o servidor ao arquivo known_hosts"
           ssh-keyscan -v -H ${{ secrets.SERVER_HOST }} >> ~/.ssh/known_hosts
-          # Verificar se o servidor foi adicionado corretamente ao known_hosts
+
+          echo "Verificando se o servidor foi adicionado ao known_hosts"
           cat ~/.ssh/known_hosts
 
       - name: Deploy to server
         run: |
+          echo "Iniciando o deploy com rsync"
           rsync -avz --delete dist/ ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/var/www/meena.com.br/
