@@ -38,12 +38,10 @@ jobs:
           echo "Verificando as permissões da chave privada"
           chmod 600 ~/.ssh/id_ed25519
 
-          echo "Listando arquivos no diretório ~/.ssh"
-          ls -la ~/.ssh
+          echo "Capturando a chave pública do servidor"
+          ssh-keyscan -H ${{ secrets.SERVER_HOST }} >> ~/.ssh/known_hosts
 
-          echo "Adicionando o servidor ao arquivo known_hosts"
-          echo "${{ secrets.SERVER_HOST }}" > ~/.ssh/known_hosts
-          echo "Verificando se o servidor foi adicionado ao known_hosts"
+          echo "Verificando se a chave pública do servidor foi adicionada"
           cat ~/.ssh/known_hosts
 
       - name: Deploy to server
