@@ -27,9 +27,10 @@ jobs:
       - name: Set up SSH for deploy
         run: |
           mkdir -p ~/.ssh
+          chmod 700 ~/.ssh  # Garantir permissões corretas para o diretório
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
-          chmod 600 ~/.ssh/id_ed25519
-          ssh-keyscan -H ${{ secrets.SERVER_HOST }} >> ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/id_ed25519  # Permissões corretas para a chave privada
+          ssh-keyscan -v -H ${{ secrets.SERVER_HOST }} >> ~/.ssh/known_hosts
 
       - name: Deploy to server
         run: |
