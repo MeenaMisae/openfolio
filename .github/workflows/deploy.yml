@@ -40,9 +40,10 @@ jobs:
           echo "Debugando configuração SSH"
           ls -la ~/.ssh
           ssh-keygen -l -f ~/.ssh/id_ed25519
+          echo "Exibindo known_hosts"
           cat ~/.ssh/known_hosts
 
       - name: Deploy to server
         run: |
           echo "Iniciando o deploy com rsync"
-          rsync -avz --delete dist/ ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/var/www/portfolio/
+          rsync -avvvz --delete dist/ ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/var/www/portfolio/
