@@ -36,4 +36,4 @@ jobs:
       - name: Deploy to server
         run: |
           echo "Iniciando deploy"
-          rsync -e "ssh -i ~/.ssh/deploy_key" -avz --delete dist/ ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/var/www/portfolio/
+          rsync -e "ssh -i ~/.ssh/deploy_key" -avz --delete dist/* ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/var/www/portfolio/
