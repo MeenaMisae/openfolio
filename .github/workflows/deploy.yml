@@ -49,4 +49,4 @@ jobs:
       - name: Deploy to server
         run: |
           echo "Iniciando o deploy com rsync"
-          rsync -avz --delete dist/ ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/var/www/meena.com.br/
+          rsync -avz --delete dist/ ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/var/www/portfolio/
