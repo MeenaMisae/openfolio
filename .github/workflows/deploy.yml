@@ -26,24 +26,14 @@ jobs:
 
       - name: Set up SSH for deploy
         run: |
-          echo "Criando o diretório ~/.ssh"
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh
-
-          echo "Adicionando a chave privada"
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
-
-          echo "Adicionando o servidor ao arquivo known_hosts"
           ssh-keyscan -H ${{ secrets.SERVER_HOST }} >> ~/.ssh/known_hosts
-
-          echo "Debugando configuração SSH"
-          ls -la ~/.ssh
-          ssh-keygen -l -f ~/.ssh/id_ed25519
-          echo "Exibindo known_hosts"
-          cat ~/.ssh/known_hosts
-
+          echo "Testando conexao ssh"
+          ssh -v -i ~/.ssh/id_ed25519 ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} 'echo "Test connection"'
       - name: Deploy to server
         run: |
-          echo "Iniciando o deploy com rsync"
-          rsync -avvvz --delete dist/ ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/var/www/portfolio/
+          echo "Iniciando deploy"
+          rsync -e "ssh -i ~/.ssh/id_ed25519" -avz --delete dist/ ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/var/www/portfolio/
