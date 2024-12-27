@@ -28,20 +28,18 @@ jobs:
         run: |
           echo "Criando o diretório ~/.ssh"
           mkdir -p ~/.ssh
-
-          echo "Garantindo permissões corretas para o diretório ~/.ssh"
           chmod 700 ~/.ssh
 
-          echo "Adicionando a chave privada ao arquivo id_ed25519"
+          echo "Adicionando a chave privada"
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
-
-          echo "Verificando as permissões da chave privada"
           chmod 600 ~/.ssh/id_ed25519
 
-          echo "Capturando a chave pública do servidor"
+          echo "Adicionando o servidor ao arquivo known_hosts"
           ssh-keyscan -H ${{ secrets.SERVER_HOST }} >> ~/.ssh/known_hosts
 
-          echo "Verificando se a chave pública do servidor foi adicionada"
+          echo "Debugando configuração SSH"
+          ls -la ~/.ssh
+          ssh-keygen -l -f ~/.ssh/id_ed25519
           cat ~/.ssh/known_hosts
 
       - name: Deploy to server
