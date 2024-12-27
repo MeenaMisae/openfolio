@@ -28,25 +28,18 @@ jobs:
         run: |
           # Criar o diretório ~/.ssh
           mkdir -p ~/.ssh
-          # Adicionar a chave privada ao arquivo
+          # Garantir permissões corretas para o diretório ~/.ssh
+          chmod 700 ~/.ssh 
+          # Adicionar a chave privada ao arquivo id_ed25519
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
-          # Garantir permissões corretas para a chave privada
+          # Verificar as permissões e conteúdo do arquivo da chave privada (não exibir a chave)
           chmod 600 ~/.ssh/id_ed25519
+          ls -la ~/.ssh  # Listar os arquivos no diretório ~/.ssh para depuração
           # Adicionar o servidor ao arquivo known_hosts
-          ssh-keyscan -H ${{ secrets.SERVER_HOST }} >> ~/.ssh/known_hosts
-
-          # Depuração - Verificar o conteúdo da chave privada e listar os arquivos em ~/.ssh
-          echo "Conteúdo da chave privada:"
-          cat ~/.ssh/id_ed25519
-          echo "Listando arquivos em ~/.ssh:"
-          ls -la ~/.ssh/
-
-      - name: Test SSH connection (debugging)
-        run: |
-          # Testar a conexão SSH com o servidor usando a chave privada
-          ssh -v -i ~/.ssh/id_ed25519 ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} exit
+          ssh-keyscan -v -H ${{ secrets.SERVER_HOST }} >> ~/.ssh/known_hosts
+          # Verificar se o servidor foi adicionado corretamente ao known_hosts
+          cat ~/.ssh/known_hosts
 
       - name: Deploy to server
         run: |
-          # Realizar o deploy com rsync
           rsync -avz --delete dist/ ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/var/www/meena.com.br/
