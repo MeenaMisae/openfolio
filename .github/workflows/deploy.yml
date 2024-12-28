@@ -24,17 +24,7 @@ jobs:
       - name: Build project
         run: npm run build
 
-      - name: Set up SSH for deploy
-        run: |
-          mkdir -p ~/.ssh
-          chmod 700 ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/deploy_key
-          chmod 600 ~/.ssh/deploy_key
-          ssh-keyscan -H ${{ secrets.SERVER_HOST }} >> ~/.ssh/known_hosts
-          echo "Testando conexao ssh"
-          ssh -v -i ~/.ssh/deploy_key ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} 'echo "Test connection"'
-
-      - name: Allow GitHub Actions IP ranges through firewall
+      - name: Allow GitHub Actions IP ranges through firewall (before SSH)
         run: |
           # Obtenha as faixas de IP do GitHub Actions e adicione ao firewall
           GITHUB_IPS=$(curl -s https://api.github.com/meta | jq -r '.actions[]')
@@ -44,6 +34,16 @@ jobs:
             sudo ufw allow from $ip to any port 443
           done
           sudo ufw reload
+
+      - name: Set up SSH for deploy
+        run: |
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -H ${{ secrets.SERVER_HOST }} >> ~/.ssh/known_hosts
+          echo "Testando conexao ssh"
+          ssh -v -i ~/.ssh/deploy_key ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} 'echo "Test connection"'
 
       - name: Deploy to server
         run: |
