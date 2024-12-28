@@ -47,24 +47,13 @@ onMounted(() => {
       <div class="flex flex-col w-full items-center justify-center px-8 lg:flex-row gap-6">
         <div class="flex flex-col items-center lg:items-start lg:gap-3">
           <span class="text-[#8095AB]">Olá, eu sou</span>
-          <h1
-            class="text-[25pt] lg:text-[40pt] font-semibold tracking-tighter text-white typewriter-animation typewriter-text max-w-fit"
-          >
-            Meena Hiwatashi
-          </h1>
-          <p class="text-[#7fcaff] text-center w-[350px] lg:w-[520px] lg:text-start text-[13pt]">
-            Sou uma desenvolvedora de software focada na resolução de problemas e na entrega de
-            sistemas completos.
-          </p>
+          <h1 class="text-[25pt] lg:text-[40pt] font-semibold tracking-tighter text-white typewriter-animation typewriter-text max-w-fit">Meena Hiwatashi</h1>
+          <p class="text-[#7fcaff] text-center w-[350px] lg:w-[520px] lg:text-start text-[13pt]">Sou uma desenvolvedora de software focada na resolução de problemas e na entrega de sistemas completos.</p>
         </div>
         <div class="lg:max-w-xl">
           <div class="swiper w-full lg:h-80 h-56">
             <div class="swiper-wrapper">
-              <div
-                class="swiper-slide rounded-lg bg-black w-full overflow-hidden px-6 border-[#1E2D3D] border"
-                v-for="(project, index) in projects"
-                :key="index"
-              >
+              <div class="swiper-slide rounded-lg bg-black w-full overflow-hidden px-6 border-[#1E2D3D] border" v-for="(project, index) in projects" :key="index">
                 <div class="h-12 flex items-center">
                   <span class="text-[#E8B44F] font-semibold">{{ project.title }}</span>
                 </div>
@@ -78,14 +67,10 @@ onMounted(() => {
       </div>
       <div class="flex flex-col gap-6 pt-4">
         <div class="flex items-center flex-col gap-y-2">
-          <img
-            src="/images/me.png"
-            alt=""
-            class="object-cover rounded-full w-16 h-16 border-[3.5px] border-[#303a4b]"
-          />
+          <img src="/images/me.png" alt="" class="object-cover rounded-full w-16 h-16 border-[3.5px] border-[#303a4b]" />
           <button class="h-[29px] text-sm btn btn-primary" id="contactMe">solicitar_contato</button>
         </div>
-        <a class="btn btn-primary" href="https://github.com/MeenaMisae/portfolio" target="_blank">
+        <!-- <a class="btn btn-primary" href="https://github.com/MeenaMisae/portfolio" target="_blank">
           Gostou? Clona pra você!
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -101,7 +86,7 @@ onMounted(() => {
             <line x1="7" y1="17" x2="17" y2="7"></line>
             <polyline points="7 7 17 7 17 17"></polyline>
           </svg>
-        </a>
+        </a> -->
       </div>
     </div>
   </section>
