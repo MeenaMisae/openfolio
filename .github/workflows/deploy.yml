@@ -34,6 +34,17 @@ jobs:
           echo "Testando conexao ssh"
           ssh -v -i ~/.ssh/deploy_key ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} 'echo "Test connection"'
 
+      - name: Allow GitHub Actions IP ranges through firewall
+        run: |
+          # Obtenha as faixas de IP do GitHub Actions e adicione ao firewall
+          GITHUB_IPS=$(curl -s https://api.github.com/meta | jq -r '.actions[]')
+          for ip in $GITHUB_IPS; do
+            sudo ufw allow from $ip to any port 22
+            sudo ufw allow from $ip to any port 80
+            sudo ufw allow from $ip to any port 443
+          done
+          sudo ufw reload
+
       - name: Deploy to server
         run: |
           echo "Garantindo que a pasta /var/www/portfolio/dist existe no servidor"
@@ -44,3 +55,14 @@ jobs:
 
           echo "Iniciando deploy"
           rsync -e "ssh -i ~/.ssh/deploy_key" -avz dist/ ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/var/www/portfolio/dist/
+
+      - name: Revert Firewall settings
+        run: |
+          # Remover as permissões temporárias de firewall após o deploy
+          GITHUB_IPS=$(curl -s https://api.github.com/meta | jq -r '.actions[]')
+          for ip in $GITHUB_IPS; do
+            sudo ufw delete allow from $ip to any port 22
+            sudo ufw delete allow from $ip to any port 80
+            sudo ufw delete allow from $ip to any port 443
+          done
+          sudo ufw reload
