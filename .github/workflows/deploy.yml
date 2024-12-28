@@ -33,7 +33,14 @@ jobs:
           ssh-keyscan -H ${{ secrets.SERVER_HOST }} >> ~/.ssh/known_hosts
           echo "Testando conexao ssh"
           ssh -v -i ~/.ssh/deploy_key ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} 'echo "Test connection"'
+
       - name: Deploy to server
         run: |
+          echo "Garantindo que a pasta /var/www/portfolio/dist existe no servidor"
+          ssh -i ~/.ssh/deploy_key ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} "mkdir -p /var/www/portfolio/dist"
+
+          echo "Apagando conteúdo antigo da pasta dist no servidor"
+          ssh -i ~/.ssh/deploy_key ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} "rm -rf /var/www/portfolio/dist/*"
+
           echo "Iniciando deploy"
-          rsync -e "ssh -i ~/.ssh/deploy_key" -avz --delete dist/* ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/var/www/portfolio/
+          rsync -e "ssh -i ~/.ssh/deploy_key" -avz dist/ ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/var/www/portfolio/dist/
