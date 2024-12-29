@@ -24,20 +24,6 @@ jobs:
       - name: Build project
         run: npm run build
 
-      - name: Get GitHub Actions runner IP
-        run: |
-          # Obtendo o IP público do GitHub Actions runner
-          GITHUB_RUNNER_IP=$(curl -s ifconfig.me)
-          echo "GitHub Actions runner IP is $GITHUB_RUNNER_IP"
-          echo "GITHUB_RUNNER_IP=$GITHUB_RUNNER_IP" >> $GITHUB_ENV
-
-      - name: Adjust Firewall settings
-        run: |
-          # Permitir apenas conexões do runner do GitHub Actions
-          echo "Configurando firewall para permitir o IP do GitHub Actions"
-          sudo ufw allow from ${{ env.GITHUB_RUNNER_IP }} to any port 22
-          sudo ufw reload
-
       - name: Set up SSH for deploy
         run: |
           mkdir -p ~/.ssh
@@ -58,10 +44,3 @@ jobs:
 
           echo "Iniciando deploy"
           rsync -e "ssh -i ~/.ssh/deploy_key" -avz dist/ ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/var/www/portfolio/dist/
-
-      - name: Revert Firewall settings
-        run: |
-          # Remover as permissões temporárias de firewall
-          echo "Removendo regras de firewall após o deploy"
-          sudo ufw delete allow from ${{ env.GITHUB_RUNNER_IP }} to any port 22
-          sudo ufw reload
