@@ -1,21 +1,22 @@
 <script setup>
 import { computed, onMounted } from 'vue';
-import Swiper from 'swiper/bundle';
-import 'swiper/css/bundle';
+import { Swiper } from 'swiper';
+import { EffectCoverflow, Autoplay } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/effect-coverflow';
 import { getProjects } from '@/services/projectService';
 
 const projects = computed(() => getProjects());
 onMounted(() => {
   const target = document.getElementById('contactMe');
   new Swiper('.swiper', {
+    modules: [EffectCoverflow, Autoplay],
     effect: 'coverflow',
     speed: 1000,
     loop: true,
-    autoplay: true,
     direction: 'vertical',
     slidesPerView: 1,
     initialSlide: 0,
-    keyboardControl: true,
     mousewheelControl: true,
     coverflow: {
       rotate: 0,
@@ -67,7 +68,7 @@ onMounted(() => {
       </div>
       <div class="flex flex-col gap-6 pt-4">
         <div class="flex items-center flex-col gap-y-2">
-          <img src="/images/me.png" alt="" class="object-cover rounded-full w-16 h-16 border-[3.5px] border-[#303a4b]" />
+          <img src="/images/me.webp" alt="" class="object-cover rounded-full w-16 h-16 border-[3.5px] border-[#303a4b]" />
           <button class="h-[29px] text-sm btn btn-primary" id="contactMe">solicitar_contato</button>
         </div>
         <!-- <a class="btn btn-primary" href="https://github.com/MeenaMisae/portfolio" target="_blank">
