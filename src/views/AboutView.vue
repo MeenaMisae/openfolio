@@ -239,7 +239,7 @@ function closeTab(index, event) {
       </div>
       <div class="flex flex-col px-4 py-6 lg:p-6" v-show="showContent">
         <div class="flex gap-x-3 items-center mb-3">
-          <img src="/images/me.png" alt="" class="object-cover rounded-full w-12 h-12" />
+          <img src="/images/me.webp" alt="" class="object-cover rounded-full w-12 h-12" />
           <div class="flex flex-col">
             <span class="text-[#5565E8] font-bold">@meena.hiwa</span>
             <span class="text-[#607B96] text-sm">5 meses atrás</span>

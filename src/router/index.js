@@ -1,8 +1,9 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '@/views/HomeView.vue'
-import AboutView from '@/views/AboutView.vue'
-import ProjectsView from '@/views/ProjectsView.vue'
-import ContactView from '@/views/ContactView.vue'
+import { createRouter, createWebHistory } from 'vue-router';
+
+const HomeView = () => import('@/views/HomeView.vue');
+const AboutView = () => import('@/views/AboutView.vue');
+const ProjectsView = () => import('@/views/ProjectsView.vue');
+const ContactView = () => import('@/views/ContactView.vue');
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -28,6 +29,6 @@ const router = createRouter({
       component: ContactView
     }
   ]
-})
+});
 
-export default router
+export default router;
