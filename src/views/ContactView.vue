@@ -1,17 +1,39 @@
 <script setup>
-import { ref } from 'vue';
-import axios from 'axios';
+import { onMounted, ref } from 'vue';
+import emailjs from '@emailjs/browser';
 
+const isRecaptchaVerified = ref(false);
 const showSuccessMessage = ref(false);
 const serverErrorMessage = ref(null);
 const errors = ref({});
-const form = ref({
-  name: '',
-  email: '',
-  message: ''
+const form = ref({ name: '', email: '', message: '' });
+const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+const recaptchaKey = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
+onMounted(() => {
+  window.grecaptcha.render('grecaptcha', {
+    sitekey: recaptchaKey,
+    callback: (response) => {
+      console.log('reCAPTCHA validado:', response);
+      isRecaptchaVerified.value = true;
+      errors.value.recaptcha = null;
+    },
+    'expired-callback': () => {
+      console.log('reCAPTCHA expirado.');
+      isRecaptchaVerified.value = false;
+    }
+  });
+  emailjs.init({
+    publicKey: publicKey
+  });
 });
+
 const validateForm = () => {
   const validationErrors = {};
+  if (!isRecaptchaVerified.value) {
+    validationErrors['recaptcha'] = 'Por favor, preencha o recaptcha antes de continuar.';
+  }
   Object.entries(form.value).forEach(([field, value]) => {
     if (!value.trim().length) {
       validationErrors[field] = `O campo ${field} é obrigatório.`;
@@ -32,22 +54,17 @@ const validateForm = () => {
 };
 const handleSubmit = () => {
   if (validateForm()) {
-    const formData = new FormData();
-    formData.append('form-name', 'contact');
-    formData.append('name', form.value.name);
-    formData.append('email', form.value.email);
-    formData.append('message', form.value.message);
-    axios
-      .post('/', new URLSearchParams(formData).toString(), {
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-      })
-      .then(() => {
+    const contactForm = document.getElementById('contact-form');
+    emailjs.sendForm(serviceId, templateId, contactForm).then(
+      () => {
         showSuccessMessage.value = true;
         form.value = { name: '', email: '', message: '' };
-      })
-      .catch(() => {
+      },
+      (error) => {
+        console.log(error);
         serverErrorMessage.value = 'Ocorreu um erro ao enviar o formulário, tente novamente mais tarde';
-      });
+      }
+    );
   }
 };
 </script>
@@ -70,15 +87,19 @@ const handleSubmit = () => {
           <span> contato@meena.com.br </span>
         </a>
       </div>
-      <form class="w-[330px] lg:w-[600px] flex flex-col gap-3 h-full" @submit.prevent="handleSubmit">
-        <input v-model="form.name" type="text" name="name" id="name" class="input input-primary" placeholder="nome" required />
+      <form class="w-[330px] lg:w-[600px] flex flex-col gap-3 h-full" @submit.prevent="handleSubmit" id="contact-form">
+        <input v-model="form.name" type="text" name="from_name" id="from_name" class="input input-primary" placeholder="nome" required />
         <span v-if="errors.name" class="text-red-600">{{ errors.name }}</span>
-        <input v-model="form.email" type="email" name="email" id="email" class="input input-primary" placeholder="email" required />
+        <input v-model="form.email" type="email" name="from_email" id="from_email" class="input input-primary" placeholder="email" required />
         <span v-if="errors.email" class="text-red-600">{{ errors.email }}</span>
         <textarea v-model="form.message" name="message" id="message" placeholder="mensagem" class="textarea textarea-primary" required></textarea>
         <span v-if="errors.message" class="text-red-600">{{ errors.message }}</span>
         <span class="text-green-600" v-if="showSuccessMessage">Obrigada! Responderei o mais rápido possível :]</span>
         <span class="text-red-600" v-if="serverErrorMessage"> {{ serverErrorMessage }}</span>
+        <div class="w-full flex justify-center my-3">
+          <div id="grecaptcha"></div>
+        </div>
+        <span v-if="errors.recaptcha" class="text-red-600">{{ errors.recaptcha }}</span>
         <button type="submit" class="btn btn-primary h-14 !text-white">enviar</button>
       </form>
     </section>
