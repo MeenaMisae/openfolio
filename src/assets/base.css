@@ -4,7 +4,7 @@
 
 @font-face {
   font-family: 'Fira Code';
-  src: url('/fonts/fira-code-variable.woff2') format('woff2');
+  src: url('/fonts/fira-code-variable.ttf') format('truetype');
   font-display: swap;
 }
 
