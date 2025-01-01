@@ -59,7 +59,7 @@ onMounted(() => {
                   <span class="text-[#E8B44F] font-semibold">{{ project.title }}</span>
                 </div>
                 <div>
-                  <img :src="project.src" alt="" class="w-full h-full object-cover rounded" />
+                  <img :src="project.src" :srcset="project.srcset" sizes="(max-width: 600px) 480px, (max-width: 1200px) 800px, 1512px" :alt="project.title" />
                 </div>
               </div>
             </div>
@@ -71,23 +71,13 @@ onMounted(() => {
           <img src="/images/me.webp" alt="" class="object-cover rounded-full w-16 h-16 border-[3.5px] border-[#303a4b]" />
           <button class="h-[29px] text-sm btn btn-primary" id="contactMe">solicitar_contato</button>
         </div>
-        <!-- <a class="btn btn-primary" href="https://github.com/MeenaMisae/portfolio" target="_blank">
+        <a class="btn btn-primary" href="https://github.com/MeenaMisae/portfolio" target="_blank">
           Gostou? Clona pra você!
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="#70879E"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#70879E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <line x1="7" y1="17" x2="17" y2="7"></line>
             <polyline points="7 7 17 7 17 17"></polyline>
           </svg>
-        </a> -->
+        </a>
       </div>
     </div>
   </section>
