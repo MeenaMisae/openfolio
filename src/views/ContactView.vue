@@ -6,6 +6,7 @@ const isRecaptchaVerified = ref(false);
 const showSuccessMessage = ref(false);
 const serverErrorMessage = ref(null);
 const errors = ref({});
+const awaitingResponse = ref(false);
 const form = ref({ name: '', email: '', message: '' });
 const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
@@ -56,6 +57,7 @@ const validateForm = () => {
 };
 const handleSubmit = () => {
   if (validateForm()) {
+    awaitingResponse.value = true;
     emailjs
       .send(serviceId, templateId, {
         from_name: form.value.name,
@@ -65,11 +67,15 @@ const handleSubmit = () => {
       })
       .then(() => {
         showSuccessMessage.value = true;
-        errors.value = null;
         form.value = { name: '', email: '', message: '' };
+        errors.value = {};
       })
       .catch(() => {
         serverErrorMessage.value = 'Ocorreu um erro ao enviar o formulário, tente novamente mais tarde';
+      })
+      .finally(() => {
+        awaitingResponse.value = false;
+        grecaptcha.reset();
       });
   }
 };
@@ -106,7 +112,7 @@ const handleSubmit = () => {
           <div id="grecaptcha" :data-sitekey="siteKey"></div>
         </div>
         <span v-if="errors.recaptcha" class="text-red-600">{{ errors.recaptcha }}</span>
-        <button type="submit" class="btn btn-primary h-14 !text-white">enviar</button>
+        <button type="submit" class="btn btn-primary h-14 !text-white" :class="{ '!opacity-50': awaitingResponse }" :disabled="awaitingResponse">enviar</button>
       </form>
     </section>
   </div>
