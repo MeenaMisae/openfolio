@@ -14,13 +14,24 @@ const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
 const siteKey = '6Lfld6sqAAAAABEwccJJxFjdAsXLq5W5_LKK8mOl';
 let recaptchaResponse;
 function loadRecaptcha() {
-  const script = document.createElement('script');
-  script.src = 'https://www.google.com/recaptcha/api.js?render=explicit';
-  document.head.appendChild(script);
+  return new Promise((resolve, reject) => {
+    const script = document.createElement('script');
+    script.src = 'https://www.google.com/recaptcha/api.js?render=explicit';
+    script.onload = () => {
+      const checkRecaptcha = setInterval(() => {
+        if (window.grecaptcha && window.grecaptcha.render) {
+          clearInterval(checkRecaptcha);
+          resolve();
+        }
+      }, 100);
+    };
+    script.onerror = () => reject(new Error('Failed to load reCAPTCHA'));
+    document.head.appendChild(script);
+  });
 }
-onMounted(() => {
-  loadRecaptcha();
-  setTimeout(() => {
+onMounted(async () => {
+  try {
+    await loadRecaptcha();
     window.grecaptcha.render('grecaptcha', {
       sitekey: siteKey,
       callback: (res) => {
@@ -32,10 +43,12 @@ onMounted(() => {
         isRecaptchaVerified.value = false;
       }
     });
-  }, 300);
-  emailjs.init({
-    publicKey: publicKey
-  });
+    emailjs.init({
+      publicKey: publicKey
+    });
+  } catch (error) {
+    console.error('Error loading reCAPTCHA');
+  }
 });
 
 const validateForm = () => {
