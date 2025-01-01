@@ -32,7 +32,7 @@ onMounted(() => {
         isRecaptchaVerified.value = false;
       }
     });
-  }, 200);
+  }, 300);
   emailjs.init({
     publicKey: publicKey
   });
