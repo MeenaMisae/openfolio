@@ -11,18 +11,21 @@ const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
 const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
 const siteKey = '6Lfld6sqAAAAABEwccJJxFjdAsXLq5W5_LKK8mOl';
+let recaptchaResponse;
 onMounted(() => {
-  window.grecaptcha.render('grecaptcha', {
-    sitekey: siteKey,
-    callback: () => {
-      isRecaptchaVerified.value = true;
-      errors.value.recaptcha = null;
-    },
-    'expired-callback': () => {
-      console.log('reCAPTCHA expirado.');
-      isRecaptchaVerified.value = false;
-    }
-  });
+  setTimeout(() => {
+    window.grecaptcha.render('grecaptcha', {
+      sitekey: siteKey,
+      callback: (res) => {
+        recaptchaResponse = res;
+        isRecaptchaVerified.value = true;
+        errors.value.recaptcha = null;
+      },
+      'expired-callback': () => {
+        isRecaptchaVerified.value = false;
+      }
+    });
+  }, 200);
   emailjs.init({
     publicKey: publicKey
   });
@@ -53,17 +56,21 @@ const validateForm = () => {
 };
 const handleSubmit = () => {
   if (validateForm()) {
-    const contactForm = document.getElementById('contact-form');
-    emailjs.sendForm(serviceId, templateId, contactForm).then(
-      () => {
+    emailjs
+      .send(serviceId, templateId, {
+        from_name: form.value.name,
+        from_email: form.value.email,
+        message: form.value.message,
+        'g-recaptcha-response': recaptchaResponse
+      })
+      .then(() => {
         showSuccessMessage.value = true;
+        errors.value = null;
         form.value = { name: '', email: '', message: '' };
-      },
-      (error) => {
-        console.log(error);
+      })
+      .catch(() => {
         serverErrorMessage.value = 'Ocorreu um erro ao enviar o formulário, tente novamente mais tarde';
-      }
-    );
+      });
   }
 };
 </script>
