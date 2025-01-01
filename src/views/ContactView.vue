@@ -10,7 +10,7 @@ const form = ref({ name: '', email: '', message: '' });
 const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
 const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-const siteKey = '6LfkH6oqAAAAAI1GG6SlNY0uP0KXp2GcgQmLECfw';
+const siteKey = '6Lfld6sqAAAAABEwccJJxFjdAsXLq5W5_LKK8mOl';
 onMounted(() => {
   window.grecaptcha.render('grecaptcha', {
     sitekey: siteKey,
