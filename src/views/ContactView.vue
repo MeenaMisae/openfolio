@@ -97,7 +97,7 @@ const handleSubmit = () => {
         <span class="text-green-600" v-if="showSuccessMessage">Obrigada! Responderei o mais rápido possível :]</span>
         <span class="text-red-600" v-if="serverErrorMessage"> {{ serverErrorMessage }}</span>
         <div class="w-full flex justify-center my-3">
-          <div id="grecaptcha"></div>
+          <div id="grecaptcha" :data-sitekey="recaptchaKey"></div>
         </div>
         <span v-if="errors.recaptcha" class="text-red-600">{{ errors.recaptcha }}</span>
         <button type="submit" class="btn btn-primary h-14 !text-white">enviar</button>
