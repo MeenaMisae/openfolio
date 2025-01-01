@@ -8,7 +8,6 @@ import { getProjects } from '@/services/projectService';
 
 const projects = computed(() => getProjects());
 onMounted(() => {
-  const target = document.getElementById('contactMe');
   new Swiper('.swiper', {
     modules: [EffectCoverflow, Autoplay],
     effect: 'coverflow',
@@ -26,19 +25,6 @@ onMounted(() => {
       slideShadows: false
     }
   });
-  setTimeout(() => {
-    calendar.schedulingButton.load({
-      url: 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ2WedMKcLdQsUa4jBahaIa0qUNfNiwS2pU7vtEf7ioRR5Y-VsSxOhxmPBkdWpLmo6I-SpAKbXKm?gv=true',
-      color: '#039BE5',
-      label: 'Agendar reunião',
-      target: target
-    });
-    const defaultBtn = document.querySelector('button.qxCTlb');
-    defaultBtn.style.display = 'none';
-    target.addEventListener('click', function () {
-      defaultBtn.click();
-    });
-  }, 500);
 });
 </script>
 
@@ -59,7 +45,7 @@ onMounted(() => {
                   <span class="text-[#E8B44F] font-semibold">{{ project.title }}</span>
                 </div>
                 <div>
-                  <img :src="project.src" :srcset="project.srcset" sizes="(max-width: 600px) 480px, (max-width: 1200px) 800px, 1512px" :alt="project.title" />
+                  <img :src="project.src" :srcset="project.srcset" sizes="(max-width: 600px) 480px, (max-width: 1200px) 800px, 1512px" :alt="project.title" :loading="project.src === '/images/projects/wire-cotton-800w.webp' ? 'eager' : 'lazy'" />
                 </div>
               </div>
             </div>
@@ -69,7 +55,7 @@ onMounted(() => {
       <div class="flex flex-col gap-6 pt-4">
         <div class="flex items-center flex-col gap-y-2">
           <img src="/images/me.webp" alt="" class="object-cover rounded-full w-16 h-16 border-[3.5px] border-[#303a4b]" />
-          <button class="h-[29px] text-sm btn btn-primary" id="contactMe">solicitar_contato</button>
+          <a href="https://calendar.app.google/uCHpaj5xdWvwM3YBA" target="_blank" class="h-[29px] text-sm btn btn-primary">solicitar_contato</a>
         </div>
         <a class="btn btn-primary" href="https://github.com/MeenaMisae/portfolio" target="_blank">
           Gostou? Clona pra você!
