@@ -10,10 +10,10 @@ const form = ref({ name: '', email: '', message: '' });
 const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
 const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-const recaptchaKey = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
+const siteKey = '6LfkH6oqAAAAAI1GG6SlNY0uP0KXp2GcgQmLECfw';
 onMounted(() => {
   window.grecaptcha.render('grecaptcha', {
-    sitekey: recaptchaKey,
+    sitekey: siteKey,
     callback: (response) => {
       console.log('reCAPTCHA validado:', response);
       isRecaptchaVerified.value = true;
@@ -97,7 +97,7 @@ const handleSubmit = () => {
         <span class="text-green-600" v-if="showSuccessMessage">Obrigada! Responderei o mais rápido possível :]</span>
         <span class="text-red-600" v-if="serverErrorMessage"> {{ serverErrorMessage }}</span>
         <div class="w-full flex justify-center my-3">
-          <div id="grecaptcha" :data-sitekey="recaptchaKey"></div>
+          <div id="grecaptcha" :data-sitekey="siteKey"></div>
         </div>
         <span v-if="errors.recaptcha" class="text-red-600">{{ errors.recaptcha }}</span>
         <button type="submit" class="btn btn-primary h-14 !text-white">enviar</button>
