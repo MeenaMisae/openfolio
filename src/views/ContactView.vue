@@ -13,7 +13,13 @@ const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
 const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
 const siteKey = '6Lfld6sqAAAAABEwccJJxFjdAsXLq5W5_LKK8mOl';
 let recaptchaResponse;
+function loadRecaptcha() {
+  const script = document.createElement('script');
+  script.src = 'https://www.google.com/recaptcha/api.js?render=explicit';
+  document.head.appendChild(script);
+}
 onMounted(() => {
+  loadRecaptcha();
   setTimeout(() => {
     window.grecaptcha.render('grecaptcha', {
       sitekey: siteKey,
