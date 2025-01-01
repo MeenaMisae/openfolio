@@ -14,8 +14,7 @@ const siteKey = '6Lfld6sqAAAAABEwccJJxFjdAsXLq5W5_LKK8mOl';
 onMounted(() => {
   window.grecaptcha.render('grecaptcha', {
     sitekey: siteKey,
-    callback: (response) => {
-      console.log('reCAPTCHA validado:', response);
+    callback: () => {
       isRecaptchaVerified.value = true;
       errors.value.recaptcha = null;
     },
